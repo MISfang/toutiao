@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-
     <!-- 路由站位符 -->
     <router-view/>
   </div>
@@ -8,9 +7,9 @@
 
 <script>
 export default {
-  name:'app',
-  data(){
-    return{
+  name: 'app',
+  data () {
+    return {
 
     }
   }
@@ -18,5 +17,4 @@ export default {
 </script>
 
 <style lang="less">
-
 </style>
