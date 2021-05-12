@@ -1,24 +1,24 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-
-// 加载全局样式
-import './styles/index.less'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
 
 // 导入vantUI组件
-import Vant from 'vant'
-import 'vant/lib/index.css'
+import Vant, { Lazyload } from "vant";
+import "vant/lib/index.css";
 
 // 加载px与rem转化的插件
-import 'amfe-flexible'
+import "amfe-flexible";
 
-Vue.use(Vant)
+// 加载全局样式,放在最后，使他的覆盖层级最高
+import "./styles/index.less";
+Vue.use(Vant);
+Vue.use(Lazyload);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount("#app");

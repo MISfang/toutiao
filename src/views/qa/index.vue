@@ -6,18 +6,18 @@
 
 <script>
 export default {
-  name: "Qa",
+  name: 'Qa',
   components: {},
   props: {},
-  data() {
-    return {};
+  data () {
+    return {}
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created () {},
+  mounted () {},
   methods: {}
-};
+}
 </script>
 
 <style lang="less" scoped></style>
