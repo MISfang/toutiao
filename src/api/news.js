@@ -25,3 +25,22 @@ export const getAllChannels = () => {
     url: "/app/v1_0/channels"
   });
 };
+
+// 修改用户频道列表
+export const addUserChannels = params => {
+  return request({
+    method: "PATCH",
+    url: "/app/v1_0/user/channels",
+    data: {
+      params
+    }
+  });
+};
+
+// 删除指定用户频道列表
+export const deleteUserChannels = channelId => {
+  return request({
+    method: "DELETE",
+    url: `/app/v1_0/user/channels/${channelId}`
+  });
+};

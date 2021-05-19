@@ -64,10 +64,17 @@
       close-icon="close"
       close-icon-position="top-left"
       round
-      duration="0.6"
+      duration="0.4"
       get-container="body"
+      @close="closePopup"
     >
-      <channel-edit :channels="channels"></channel-edit>
+      <channel-edit
+        :channels="channels"
+        @close="close"
+        @switch="onTabSwitch"
+        :active="active"
+        ref="channelEdit"
+      ></channel-edit>
     </van-popup>
   </div>
 </template>
@@ -112,6 +119,16 @@ export default {
     async loadChannels() {
       const { data } = await getUserChannels();
       this.channels = data.data.channels;
+    },
+    // 子组件提交的事件，切换频道对应的逻辑
+    close() {
+      this.popupIsShow = false;
+    },
+    onTabSwitch(id) {
+      this.active = id;
+    },
+    closePopup() {
+      this.$refs.channelEdit.isClearShow = false;
     }
   }
 };
@@ -178,14 +195,17 @@ export default {
   width: 42px;
   flex-shrink: 0;
 }
-
-.channel-grid {
-  border: 1px solid black;
+/deep/.van-popup__close-icon {
+  font-size: 26px;
+  color: #1989fa;
+  font-weight: 700;
 }
 /deep/.van-grid-item__content {
   background-color: #f3f5f7;
+  height: 52px !important;
   .van-grid-item__text {
     font-size: 13px;
+    margin-top: 0;
   }
 }
 </style>
