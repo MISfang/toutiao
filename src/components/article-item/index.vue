@@ -1,5 +1,13 @@
 <template>
-  <van-cell class="article-item">
+  <van-cell
+    class="article-item"
+    :to="{
+      name: 'article',
+      params: {
+        articleId: article.art_id
+      }
+    }"
+  >
     <div slot="title" class="title van-multi-ellipsis--l2">
       {{ article.title }}
     </div>
@@ -10,7 +18,7 @@
           v-for="(image, index) in article.cover.images"
           :key="index"
         >
-          <van-image width="116" height="73" fit="cover" src="image" />
+          <van-image width="116" height="73" fit="cover" :src="image" />
         </div>
       </div>
       <!-- 下面的作者，发布时间等 -->
@@ -25,7 +33,7 @@
     <van-image
       v-if="article.cover.type === 1"
       fit="cover"
-      src="article.cover.images[0]"
+      :src="article.cover.images[0]"
     />
   </van-cell>
 </template>

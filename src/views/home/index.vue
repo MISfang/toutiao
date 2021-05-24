@@ -9,6 +9,7 @@
           icon="search"
           class="search-btn"
           size="small"
+          @click="searchPopupIsShow = true"
           >搜索</van-button
         >
       </template>
@@ -58,8 +59,8 @@
     <!-- 编辑频道时候的弹出层 -->
     <van-popup
       v-model="popupIsShow"
-      position="bottom"
-      :style="{ height: '85%' }"
+      position="left"
+      :style="{ height: '100%', width: '85%' }"
       closeable
       close-icon="close"
       close-icon-position="top-left"
@@ -76,6 +77,21 @@
         ref="channelEdit"
       ></channel-edit>
     </van-popup>
+
+    <!-- 搜索对应的弹出层页面 -->
+    <van-popup
+      v-model="searchPopupIsShow"
+      position="bottom"
+      :style="{ height: '92%' }"
+      round
+      duration="0.4"
+      get-container="body"
+      @closed="sonSousuoReset"
+    >
+      <!-- 对应的搜索页组件 -->
+      <search ref="sonReset" @closePopup="searchPopupIsShow = false"></search>
+    </van-popup>
+    <!-- 弹出层结束 -->
   </div>
 </template>
 
@@ -83,12 +99,16 @@
 import { getUserChannels } from "@/api/news";
 import ArticleList from "./components/article-list";
 import ChannelEdit from "./components/channel-edit-view";
+import Search from "./components/search";
+import { mapState } from "vuex";
+import { getItem } from "@/utils/storeage";
 
 export default {
   name: "Home",
   components: {
     ArticleList,
-    ChannelEdit
+    ChannelEdit,
+    Search
   },
   props: {},
   data() {
@@ -100,10 +120,14 @@ export default {
       // 拿到的当前登录用户的频道列表、
       channels: [],
       // 控制弹出层的flag
-      popupIsShow: true
+      popupIsShow: false,
+      // 控制搜索框的弹出层
+      searchPopupIsShow: false
     };
   },
-  computed: {},
+  computed: {
+    ...mapState(["user"])
+  },
   watch: {},
   created() {
     this.loadChannels();
@@ -117,8 +141,22 @@ export default {
 
     // 初始化频道列表
     async loadChannels() {
-      const { data } = await getUserChannels();
-      this.channels = data.data.channels;
+      let channels = [];
+
+      // 判断用户数是否登录来渲染频道列表
+      if (this.user) {
+        const { data } = await getUserChannels();
+        channels = data.data.channels;
+      } else {
+        const localData = getItem("user-channels");
+        if (localData) {
+          channels = localData;
+        } else {
+          const { data } = await getUserChannels();
+          channels = data.data.channels;
+        }
+      }
+      this.channels = channels;
     },
     // 子组件提交的事件，切换频道对应的逻辑
     close() {
@@ -129,6 +167,10 @@ export default {
     },
     closePopup() {
       this.$refs.channelEdit.isClearShow = false;
+    },
+    // 向子组件传值
+    sonSousuoReset() {
+      this.$refs.sonReset.sonResetSousuo();
     }
   }
 };

@@ -14,7 +14,7 @@
     </van-cell>
 
     <!-- 下面的用户已选择的频道列表 -->
-    <van-grid :gutter="6">
+    <van-grid :gutter="6" :column-num="3">
       <van-grid-item
         v-for="(channel, index) in channels"
         :key="index"
@@ -37,7 +37,7 @@
       <div slot="title" class="title">其他频道</div>
     </van-cell>
     <!-- 下面的用户已未选中的频道列表 -->
-    <van-grid :gutter="6">
+    <van-grid :gutter="6" :column-num="3">
       <van-grid-item
         v-for="(channel, index) in recommendChannels"
         :key="index"
@@ -123,7 +123,6 @@ export default {
         this.$emit("switch", this.active - 1);
       }
       this.channels.splice(id, 1);
-
       if (this.user) {
         // 线上持久化
         await deleteUserChannels(channel.id);
@@ -198,13 +197,17 @@ export default {
 }
 
 .shadow {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: 5px 4px 3px #ebedf0;
 }
 .active {
   /deep/.van-grid-item__text {
     color: #1989fa;
-    font-weight: 700;
-    font-size: 24px;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+  }
+  /deep/.van-grid-item__content {
+    background-color: #f7f9ff;
+    box-shadow: 5px 4px 3px #ebedf0;
   }
 }
 </style>
