@@ -44,3 +44,11 @@ export const deleteUserChannels = channelId => {
     url: `/app/v1_0/user/channels/${channelId}`
   });
 };
+
+// 获取新闻详情数据
+export const detailArticle = articleID => {
+  return request({
+    method: "GET",
+    url: `/app/v1_0/articles/${articleID}`
+  });
+};

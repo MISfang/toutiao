@@ -1,30 +1,32 @@
 <template>
   <div class="channel-edit">
     <!-- 最上面的搜索 -->
-    <div class="placeholder"></div>
-    <van-search
-      v-model="searchText"
-      shape="round"
-      background="#2892ff"
-      placeholder="请输入搜索关键词"
-      clearable
-      show-action
-      class="search-button"
-      @search="onSearch(searchText)"
-      @clear="onClear"
-    >
-      <!-- 右边的按钮 -->
-      <template #action>
-        <van-button
-          plain
-          type="info"
-          round
-          class="right-button"
-          @click="onCancel"
-          >取消</van-button
-        >
-      </template>
-    </van-search>
+    <van-sticky :offset-top="53.36">
+      <div class="placeholder"></div>
+      <van-search
+        v-model="searchText"
+        shape="round"
+        background="#2892ff"
+        placeholder="请输入搜索关键词"
+        clearable
+        show-action
+        class="search-button"
+        @search="onSearch(searchText)"
+        @clear="onClear"
+      >
+        <!-- 右边的按钮 -->
+        <template #action>
+          <van-button
+            plain
+            type="info"
+            round
+            class="right-button"
+            @click="onCancel"
+            >取消</van-button
+          >
+        </template>
+      </van-search>
+    </van-sticky>
 
     <!-- 搜索结果 -->
     <search-result
@@ -98,7 +100,7 @@ export default {
     // 取消按钮
     onCancel() {
       this.$emit("closePopup");
-      this.$refs.history.isDeleteIconShow = true;
+      // this.$refs.history.isDeleteIconShow = true;
     },
     //删除内容
     onClear() {
@@ -137,6 +139,7 @@ export default {
     width: 100%;
     height: 20px;
     background-color: #2892ff;
+    border-radius: 15px 15px 0 0;
   }
   .search-button {
     margin-top: -10px;

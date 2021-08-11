@@ -6,7 +6,19 @@
       left-arrow
       @click-left="$router.back()"
       class="app-nav-bar"
-    />
+    >
+      <template #right>
+        <van-button
+          type="info"
+          plain
+          hairline
+          round
+          @click="popupIsShow = true"
+          size="small"
+          >查看测试号</van-button
+        >
+      </template>
+    </van-nav-bar>
 
     <!-- 轮播图 -->
     <div class="my-swipe-container">
@@ -79,6 +91,15 @@
       </van-button>
     </van-form>
     <!-- 下面的输入框结束 -->
+
+    <van-dialog v-model="popupIsShow" title="测试号">
+      <van-cell-group inset>
+        <van-cell title="13911111111" size="large" value="246810" />
+        <van-cell title="13611111111" size="large" value="246810" />
+        <van-cell title="13922222222" size="large" value="246810" />
+        <van-cell title="17320270567" size="large" value="246810" />
+      </van-cell-group>
+    </van-dialog>
   </div>
 </template>
 
@@ -103,13 +124,16 @@ export default {
         mobile: "",
         code: ""
       },
+      popupIsShow: false,
 
       swiperImgs: [
-        "https://cdn.dribbble.com/users/518045/screenshots/15638080/media/ca4a5f8758278f716927f0d051ef17cb.png",
-        "https://cdn.dribbble.com/users/518045/screenshots/14770233/media/a72f3528258ee45d8fa2414580f11454.png",
-        "https://cdn.dribbble.com/users/518045/screenshots/15554040/media/4c5a3cd8413f3395dd011bfdfa805a19.png?compress=1&resize=800x600",
-        "https://cdn.dribbble.com/users/518045/screenshots/15310594/media/faa9833e334e03d91b558c7f25fe16aa.png?compress=1&resize=800x600",
-        "https://cdn.dribbble.com/users/518045/screenshots/14547444/media/0fd39201d0aa39729a3869c3fd0d15a3.png?compress=1&resize=800x600"
+        "https://cdn.dribbble.com/users/418509/screenshots/16215396/media/e7f7e2aee46f09fcf758bb50eef4b424.png",
+        "https://cdn.dribbble.com/users/418509/screenshots/14118686/media/c210b0b231be57721526c23343bcd94c.png",
+        "https://cdn.dribbble.com/users/418509/screenshots/14091820/media/39a386f211beeec58685eed64f6ef017.png?compress=1&resize=800x600",
+        "https://cdn.dribbble.com/users/418509/screenshots/15874779/media/dd5b54e9009fe82c2cdefa3858e2dc80.png?compress=1&resize=1600x1200",
+        "https://cdn.dribbble.com/users/418509/screenshots/10074335/media/f3a1301fd8849faba433084260394741.png?compress=1&resize=800x600",
+        "https://cdn.dribbble.com/users/418509/screenshots/16016488/media/d588b94050040354aa21ac82738620a5.png?compress=1&resize=1600x1200",
+        "https://cdn.dribbble.com/users/418509/screenshots/16185039/media/0b912a71f2d166149c6270ffa730a86b.png?compress=1&resize=1600x1200"
       ],
       // 表单验证规则
       formRules: {
@@ -130,10 +154,6 @@ export default {
       }
     };
   },
-  computed: {},
-  watch: {},
-  created() {},
-  mounted() {},
   methods: {
     // 登录对应方法
     async onLogin() {
@@ -152,8 +172,10 @@ export default {
 
         this.$store.commit("setUser", data.data);
 
+        this.$store.commit("removeCachePage", "Layout");
+
         // 登录成功，跳转到来时的页面
-        this.$router.back();
+        this.$router.push("/");
       } catch (err) {
         Toast.fail("用户未注册或者验证码有误");
         console.dir("验证码有误，登录失败", err);
@@ -224,7 +246,6 @@ export default {
   border: none;
   .van-button__text {
     font-size: 18px;
-    font-weight: 700;
   }
 }
 // 轮播图样式调整
@@ -250,7 +271,6 @@ export default {
   text-align: center;
   background-color: #6db4fb;
   font-size: 18px !important;
-  font-weight: 700;
   border-radius: 14px;
 }
 </style>

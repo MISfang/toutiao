@@ -79,7 +79,6 @@ export default {
 .top-cell {
   /deep/.van-cell__title {
     font-size: 18px;
-    font-weight: 700;
     color: #2892ff;
     display: flex;
     align-items: center;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="article-list">
     <!-- 列表组件 -->
     <!-- 下拉刷新 -->
     <van-pull-refresh
@@ -13,7 +13,6 @@
         finished-text="全部加载完成了"
         @load="onLoad"
         class="article-list"
-        scrollspy
       >
         <!-- 遍历封装好的文章列表组件 -->
         <article-item
@@ -29,6 +28,7 @@
 <script>
 import { getArticles } from "@/api/news";
 import ArticleItem from "@/components/article-item";
+import { debounce } from "lodash";
 
 export default {
   name: "ArticleList",
@@ -50,13 +50,23 @@ export default {
       //   页面,获取下一页数据的时间戳
       timestamp: null,
       //   页面是否下拉刷新的flag
-      isPullDownLoading: false
+      isPullDownLoading: false,
+      scrollTop: 0
     };
   },
   computed: {},
   watch: {},
   created() {},
-  mounted() {},
+  mounted() {
+    const articleList = this.$refs["article-list"];
+    articleList.onscroll = debounce(() => {
+      this.scrollTop = articleList.scrollTop;
+    });
+  },
+
+  activated() {
+    this.$refs["article-list"].scrollTop = this.scrollTop;
+  },
   methods: {
     //   触底加载更多
     async onLoad() {

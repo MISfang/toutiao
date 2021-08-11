@@ -8,7 +8,16 @@
       class="list"
       loading-text="疯狂加载中..."
     >
-      <van-cell v-for="(item, id) in list" :key="id">
+      <van-cell
+        v-for="(item, id) in list"
+        :key="id"
+        :to="{
+          name: 'article',
+          params: {
+            articleId: item.art_id
+          }
+        }"
+      >
         <div slot="title" v-html="highlight(item.title)"></div>
         <template #right-icon>
           <div class="xuhao">{{ id + 1 }}</div>
@@ -21,8 +30,10 @@
 <script>
 import { searchResult } from "@/api/search.js";
 import { Toast } from "vant";
+
 export default {
   name: "searchResult",
+
   data() {
     return {
       list: [],
@@ -47,6 +58,12 @@ export default {
       });
       const { results } = data.data;
       this.list.push(...results);
+      console.log(
+        "%c 🥃 this.list: ",
+        "font-size:20px;background-color: #2EAFB0;color:#fff;",
+        this.list
+      );
+
       if (results.length === 0) {
         Toast({
           message: "搜索无结果",
@@ -96,18 +113,19 @@ export default {
       background-color: #f7f8fa;
       border: 1px solid #9ebfe0;
       border-radius: 12px;
-      margin: 2px 0;
-      box-shadow: 4px 10px 12px 2px #ebedf0;
+      margin: 5px 0;
+      box-shadow: 4px 10px 12px 2px rgba(110, 110, 110, 0.5);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
       /deep/.xuhao {
-        margin-right: -10px;
-        font-size: 14px;
+        font-size: 16px;
         color: white;
-        font-weight: 700;
         border: 1px solid#2892ff;
         text-align: center;
         height: 24px;
         width: 24px;
-        background-color: rgba(40, 146, 255, 0.5);
+        background-color: rgba(40, 146, 255, 0.8);
         border-radius: 20px;
       }
     }

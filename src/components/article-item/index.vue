@@ -54,7 +54,6 @@ export default {
 .article-item {
   .title {
     font-size: 18px;
-    font-weight: 700;
     color: #2892ff;
   }
   /deep/.van-cell__value {
@@ -84,7 +83,6 @@ export default {
   font-size: 12px;
   color: #b4b4b4;
   .author {
-    font-weight: 700;
     color: tomato;
   }
 }

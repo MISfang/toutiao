@@ -71,7 +71,6 @@ export default {
   methods: {
     onclick(item, index) {
       if (!this.isDeleteIconShow) {
-        console.log(index);
         this.historyList.splice(index, 1);
         setItem("search-history", this.historyList);
       } else {
@@ -110,7 +109,6 @@ export default {
     height: 500px;
   }
   .noHistory {
-    font-weight: 700;
     font-size: 24px;
     color: #2892ff;
     margin: 20px 0 0 110px;
@@ -118,14 +116,12 @@ export default {
   .top-cell {
     /deep/.van-cell__title {
       font-size: 18px;
-      font-weight: 700;
       color: #2892ff;
       display: flex;
       align-items: center;
     }
     .search-icon {
       font-size: 28px;
-      font-weight: 700;
       line-height: inherit;
       margin-bottom: 6px;
     }
@@ -133,7 +129,6 @@ export default {
       width: 80px;
       height: 30px;
       font-size: 12px;
-      font-weight: 700;
     }
     .left {
       margin-right: 6px;
@@ -149,7 +144,6 @@ export default {
       .van-icon-close {
         margin: auto 0;
         font-size: 18px;
-        font-weight: 700;
         color: #ee0a24;
       }
     }

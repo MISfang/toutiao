@@ -17,7 +17,13 @@
           class="avatar"
         />
         <div slot="title" class="name">{{ user_data.name }}</div>
-        <van-button size="small" round type="info" class="update-btn" plain
+        <van-button
+          size="small"
+          round
+          type="info"
+          class="update-btn"
+          plain
+          to="/user/profile"
           >编辑资料</van-button
         >
       </van-cell>
@@ -47,12 +53,56 @@
 
     <!-- 下面的收藏表 -->
     <van-grid :column-num="2" class="nav-grid">
-      <van-grid-item class="nav-grid-item" icon="star-o" text="收藏" />
-      <van-grid-item class="nav-grid-item" icon="underway-o" text="浏览历史" />
+      <van-grid-item
+        @click="
+          fenSiIsShow = true;
+          type = 1;
+        "
+        class="nav-grid-item"
+        icon="like-o"
+        text="粉丝列表"
+      />
+      <van-grid-item
+        @click="
+          guanZhuIsSHow = true;
+          type = 2;
+        "
+        class="nav-grid-item"
+        icon="add-o"
+        text="关注列表"
+      />
+    </van-grid>
+    <van-grid :column-num="3" class="nav-grid">
+      <van-grid-item
+        @click="
+          allArtIsShow = true;
+          type2 = 1;
+        "
+        class="nav-grid-item"
+        icon="label-o"
+        text="我的文章"
+      />
+      <van-grid-item
+        class="nav-grid-item"
+        icon="star-o"
+        text="我的收藏"
+        @click="
+          allColIsShow = true;
+          type2 = 2;
+        "
+      />
+      <van-grid-item
+        class="nav-grid-item"
+        icon="underway-o"
+        text="浏览历史"
+        @click="
+          allHisIsShow = true;
+          type2 = 3;
+        "
+      />
     </van-grid>
 
     <!-- 下面的导航跳转 -->
-    <van-cell title="消息通知" is-link to="" class="nav-to A" />
     <van-cell title="小智同学" is-link to="" class="nav-to" />
 
     <!-- 最下的退出登录 -->
@@ -65,21 +115,90 @@
       @click="onloginout"
       >退出登录</van-button
     >
+
+    <!-- 再往下对应功能页面的弹出层 -->
+    <van-popup
+      v-model="guanZhuIsSHow"
+      closeable
+      close-icon="close"
+      position="bottom"
+      :style="{ height: '80%' }"
+      round
+    >
+      <guanzhu :id="user_data.id" :type="type"> </guanzhu>
+    </van-popup>
+    <!-- 粉丝的弹出层 -->
+
+    <van-popup
+      v-model="fenSiIsShow"
+      closeable
+      close-icon="close"
+      position="bottom"
+      :style="{ height: '80%' }"
+      round
+    >
+      <guanzhu :id="user_data.id" :type="type"> </guanzhu>
+    </van-popup>
+
+    <!-- 用户全部文章列表 -->
+    <van-popup
+      v-model="allArtIsShow"
+      closeable
+      close-icon="close"
+      position="bottom"
+      :style="{ height: '80%' }"
+      round
+    >
+      <newArtList :type="type2"> </newArtList>
+    </van-popup>
+    <!-- 用户收藏的弹出层 -->
+    <van-popup
+      v-model="allColIsShow"
+      closeable
+      close-icon="close"
+      position="bottom"
+      :style="{ height: '80%' }"
+      round
+    >
+      <newArtList :type="type2"> </newArtList>
+    </van-popup>
+    <van-popup
+      v-model="allHisIsShow"
+      closeable
+      close-icon="close"
+      position="bottom"
+      :style="{ height: '80%' }"
+      round
+    >
+      <newArtList :type="type2"> </newArtList>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import { getCurrentUser } from "@/api/user";
+import guanzhu from "@/views/my/component/guanzhu";
+import newArtList from "@/views/my/component/newArtList";
 
 export default {
   name: "My",
-  components: {},
+  components: { guanzhu, newArtList },
   props: {},
   data() {
     return {
       // 当前登录用户的基本信息
-      user_data: {}
+      user_data: {},
+
+      type: 0,
+      type2: 0,
+
+      // 对应五个弹出层的开关
+      guanZhuIsSHow: false,
+      fenSiIsShow: false,
+      allArtIsShow: false,
+      allColIsShow: false,
+      allHisIsShow: false
     };
   },
   computed: {
@@ -109,9 +228,7 @@ export default {
     // 在初始化中，获取用户的相应数据
     async loadCurrentUser() {
       const { data } = await getCurrentUser();
-      console.log(data);
       this.user_data = data.data;
-      console.log(this.user_data);
     }
   }
 };
@@ -123,7 +240,6 @@ export default {
   width: 60%;
   margin: 20px auto 0;
   font-size: 16px;
-  font-weight: 700;
 }
 
 .my-container {
@@ -165,13 +281,11 @@ export default {
       }
       .name {
         font-size: 16px;
-        font-weight: 700;
         color: white;
       }
       .update-btn {
         width: 90px;
         font-size: 12px;
-        font-weight: 700;
       }
     }
     .data-info {
@@ -202,7 +316,6 @@ export default {
       /deep/.van-grid-item__text {
         font-size: 10px;
         color: #ff6356;
-        font-weight: 700;
       }
     }
   }
@@ -210,7 +323,6 @@ export default {
     .van-cell__title {
       margin-left: 10px;
       font-size: 14px;
-      font-weight: 700;
     }
     .van-cell__right-icon {
       margin-right: 10px;
@@ -219,5 +331,10 @@ export default {
   .A {
     margin-top: 10px;
   }
+}
+/deep/.van-popup__close-icon {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1989fa;
 }
 </style>

@@ -27,7 +27,7 @@
     </van-grid>
     <div class="top-placeHA"></div>
     <van-divider
-      :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 10px' }"
+      :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 4px' }"
     >
       分割线
     </van-divider>
@@ -43,6 +43,8 @@
         :key="index"
         :text="channel.name"
         class="channel-grid"
+        :class="{ shadow: isClearShow }"
+        :icon="isClearShow ? 'add' : ''"
         @click="onAdd(channel)"
       />
     </van-grid>
@@ -85,6 +87,8 @@ export default {
     async loadAllChannels() {
       const { data } = await getAllChannels();
       this.allChannels = data.data.channels;
+
+      this.channels = getItem("user-channels");
     },
 
     // 添加点击事件
@@ -92,20 +96,18 @@ export default {
       this.channels.push(channel);
 
       // 做一下数据持久化
-      if (this.user) {
-        // 登录了
-        console.log(channel.id);
-        console.log(this.channels.length);
-        await addUserChannels([
-          {
-            id: channel.id,
-            seq: this.channels.length
-          }
-        ]);
-      } else {
-        // 未登录
-        setItem("user-channels", this.channels);
-      }
+      // if (this.user) {
+      //   // 登录了
+      //   await addUserChannels([
+      //     {
+      //       id: channel.id,
+      //       seq: this.channels.length
+      //     }
+      //   ]);
+      // } else {
+      // 未登录
+      setItem("user-channels", this.channels);
+      // }
     },
 
     // 添加删除或者切换列表的方法
@@ -123,18 +125,17 @@ export default {
         this.$emit("switch", this.active - 1);
       }
       this.channels.splice(id, 1);
-      if (this.user) {
-        // 线上持久化
-        await deleteUserChannels(channel.id);
-      } else {
-        // 线下持久化
-        setItem("user-channels", this.channels);
-      }
+      // if (this.user) {
+      //   // 线上持久化
+      //   await deleteUserChannels(channel.id);
+      // } else {
+      // 线下持久化
+      setItem("user-channels", this.channels);
+      // }
     },
 
     // 对应切换频道的逻辑
     swicthChannel(id) {
-      console.log("切换");
       this.$emit("close");
       this.$emit("switch", id);
     }
@@ -161,7 +162,6 @@ export default {
     height: 46px;
     line-height: 36px;
     font-size: 18px;
-    font-weight: 700;
     color: #227bd7;
   }
   .edit-btn {
@@ -169,7 +169,6 @@ export default {
     height: 36px;
     margin-bottom: 10px;
     font-size: 14px;
-    font-weight: 700;
   }
 }
 
@@ -202,7 +201,6 @@ export default {
 .active {
   /deep/.van-grid-item__text {
     color: #1989fa;
-    font-weight: 700 !important;
     font-size: 16px !important;
   }
   /deep/.van-grid-item__content {

@@ -17,6 +17,11 @@ const routes = [
     props: true
   },
   {
+    path: "/user/profile",
+    name: "userProfile",
+    component: () => import("@/views/user-profile")
+  },
+  {
     path: "/",
     component: () => import("@/views/layout"),
     children: [
@@ -26,17 +31,17 @@ const routes = [
         component: () => import("@/views/home")
       },
       {
-        path: "qa", // 这个是默认的子路由
+        path: "qa",
         name: "qa",
         component: () => import("@/views/qa")
       },
       {
-        path: "video", // 这个是默认的子路由
+        path: "video",
         name: "viedo",
         component: () => import("@/views/video")
       },
       {
-        path: "my", // 这个是默认的子路由
+        path: "my",
         name: "my",
         component: () => import("@/views/my")
       }

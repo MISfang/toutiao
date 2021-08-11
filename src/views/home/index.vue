@@ -24,10 +24,7 @@
       theme="round-button"
       :close-on-click-overlay="true"
     >
-      <van-image
-        fit="cover"
-        src="https://cdn.dribbble.com/users/1044993/screenshots/15525960/media/ca7447bdd4c1e607f08739c6ad7ff021.png"
-      />
+      <van-image fit="cover" src="./Snipaste_2021-08-10_22-46-19.png" />
     </van-dialog>
     <!-- 对应弹出的dialog结束 -->
 
@@ -39,7 +36,7 @@
         :title="channel.name"
         :key="channel.id"
       >
-        <article-list :channel="channel"></article-list>
+        <article-list ref="setTop" :channel="channel" id="list"></article-list>
       </van-tab>
       <!-- 汉堡按钮对应位置的站位元素 -->
       <div slot="nav-right" class="hanbao-placeholder"></div>
@@ -92,6 +89,20 @@
       <search ref="sonReset" @closePopup="searchPopupIsShow = false"></search>
     </van-popup>
     <!-- 弹出层结束 -->
+
+    <!-- 回到顶部按钮 -->
+    <vm-back-top
+      :height="300"
+      :bottom="55"
+      :right="20"
+      :duration="2000"
+      timing="ease"
+    >
+      <div class="back-top">
+        <van-icon name="fire" color="#2892ff" size="48" />
+        <span class="text">返回顶部</span>
+      </div>
+    </vm-back-top>
   </div>
 </template>
 
@@ -101,14 +112,16 @@ import ArticleList from "./components/article-list";
 import ChannelEdit from "./components/channel-edit-view";
 import Search from "./components/search";
 import { mapState } from "vuex";
-import { getItem } from "@/utils/storeage";
+import { getItem, setItem } from "@/utils/storeage";
+import VmBackTop from "vue-multiple-back-top";
 
 export default {
   name: "Home",
   components: {
     ArticleList,
     ChannelEdit,
-    Search
+    Search,
+    VmBackTop
   },
   props: {},
   data() {
@@ -119,6 +132,7 @@ export default {
       active: 0,
       // 拿到的当前登录用户的频道列表、
       channels: [],
+
       // 控制弹出层的flag
       popupIsShow: false,
       // 控制搜索框的弹出层
@@ -126,7 +140,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user"])
+    ...mapState(["user", "user2"])
   },
   watch: {},
   created() {
@@ -144,18 +158,18 @@ export default {
       let channels = [];
 
       // 判断用户数是否登录来渲染频道列表
-      if (this.user) {
+      // if (this.user) {
+      //   const { data } = await getUserChannels();
+      //   channels = data.data.channels;
+      // } else {
+      const localData = getItem("user-channels");
+      if (localData) {
+        channels = localData;
+      } else {
         const { data } = await getUserChannels();
         channels = data.data.channels;
-      } else {
-        const localData = getItem("user-channels");
-        if (localData) {
-          channels = localData;
-        } else {
-          const { data } = await getUserChannels();
-          channels = data.data.channels;
-        }
       }
+      // }
       this.channels = channels;
     },
     // 子组件提交的事件，切换频道对应的逻辑
@@ -183,7 +197,6 @@ export default {
   }
   /deep/.van-nav-bar__text {
     font-size: 22px;
-    font-weight: 700;
     color: white;
   }
   background-color: #2892ff;
@@ -193,16 +206,19 @@ export default {
     color: white;
   }
   .search-btn {
-    width: 180px;
-    font-size: 12px;
-    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+    font-size: 14px;
+    letter-spacing: 4px;
+    margin-right: 30px;
   }
 }
 
 // 宇龙头条弹出样式
 /deep/.van-dialog__header {
   font-size: 20px;
-  font-weight: 700;
   color: #2892ff;
   margin-bottom: 10px;
 }
@@ -240,7 +256,6 @@ export default {
 /deep/.van-popup__close-icon {
   font-size: 26px;
   color: #1989fa;
-  font-weight: 700;
 }
 /deep/.van-grid-item__content {
   background-color: #f3f5f7;
@@ -249,5 +264,27 @@ export default {
     font-size: 13px;
     margin-top: 0;
   }
+}
+
+// 回到顶部的按钮样式
+.back-top {
+  width: 60px;
+  padding-bottom: 10px;
+  height: 70px;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+  .text {
+    font-size: 13px;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/deep/.van-sticky--fixed {
+  border-radius: 15px 15px 0 0;
 }
 </style>

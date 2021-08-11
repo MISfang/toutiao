@@ -9,7 +9,9 @@ Vue.use(Vuex);
 const USER_KEY = "login_user";
 export default new Vuex.Store({
   state: {
-    user: getItem(USER_KEY) // 当前用户的登录状态
+    user: getItem(USER_KEY), // 当前用户的登录状态
+
+    cachePages: ["Layout"]
   },
   mutations: {
     setUser(state, data) {
@@ -17,6 +19,17 @@ export default new Vuex.Store({
 
       // 为了实现数据持久化，还是需要本地存储
       setItem(USER_KEY, state.user);
+    },
+    addCachePage(state, pageName) {
+      if (!state.cachePages.includes(pageName)) {
+        state.cachePages.push(pageName);
+      }
+    },
+    removeCachePage(state, pageName) {
+      const index = state.cachePages.indexOf(pageName);
+      if (index !== -1) {
+        state.cachePages.splice(index, 1);
+      }
     }
   },
   actions: {},
