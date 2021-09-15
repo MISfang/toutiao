@@ -10,6 +10,7 @@ import router from "@/router/";
 const reFresh = axios.create({
   baseURL: "http://ttapi.research.itcast.cn"
 });
+
 const request = axios.create({
   baseURL: "http://ttapi.research.itcast.cn"
   // 这是基础路径

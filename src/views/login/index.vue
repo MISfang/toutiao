@@ -127,13 +127,12 @@ export default {
       popupIsShow: false,
 
       swiperImgs: [
-        "https://cdn.dribbble.com/users/418509/screenshots/16215396/media/e7f7e2aee46f09fcf758bb50eef4b424.png",
-        "https://cdn.dribbble.com/users/418509/screenshots/14118686/media/c210b0b231be57721526c23343bcd94c.png",
-        "https://cdn.dribbble.com/users/418509/screenshots/14091820/media/39a386f211beeec58685eed64f6ef017.png?compress=1&resize=800x600",
-        "https://cdn.dribbble.com/users/418509/screenshots/15874779/media/dd5b54e9009fe82c2cdefa3858e2dc80.png?compress=1&resize=1600x1200",
-        "https://cdn.dribbble.com/users/418509/screenshots/10074335/media/f3a1301fd8849faba433084260394741.png?compress=1&resize=800x600",
-        "https://cdn.dribbble.com/users/418509/screenshots/16016488/media/d588b94050040354aa21ac82738620a5.png?compress=1&resize=1600x1200",
-        "https://cdn.dribbble.com/users/418509/screenshots/16185039/media/0b912a71f2d166149c6270ffa730a86b.png?compress=1&resize=1600x1200"
+        "https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27Tn71FNbLnUo29OYjP70ubzQ5HTgLZfKNRAP6xiaCczchoQjTHEHXkBGfA/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1",
+        "https://mmbiz.qpic.cn/mmbiz_png/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27Tnst2aVLnP4FoibqBIYFiccnrgtH9bLnfiaNqOrnsibeaO9rGDO14dnO4o8g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1",
+        "https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnmDKIUMSCiaCb6hcDaMVAzwoY2l0oMN4ibGbfgmp2ugOI20MHgBNtM1RQ/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1",
+        "https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnWr3hMjohvkoIRsDISF9ib3dg52YmcsrWsOHo5SK4qiagibAC62nAPfrMw/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1",
+        "https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnWQYZvkwQibtsyTCEv08IpWgz6eGck3ZxkiasyKSHy2oRL2M0qGV0PUGg/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1",
+        "https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnNfL20rOSKm5OnxEA4PZdWVfibyedCoMqf4CiciaOZZv5UNfUkEYrn7VuA/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"
       ],
       // 表单验证规则
       formRules: {
