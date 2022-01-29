@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import ArticleItem from "@/components/article-item";
-import { getAllArt, getAllCol, getAllHis } from "@/api/my";
+import ArticleItem from '@/components/article-item'
+import { getAllArt, getAllCol, getAllHis } from '@/api/my'
 
 export default {
-  name: "ArticleList",
+  name: 'ArticleList',
   components: {
     ArticleItem
   },
@@ -38,7 +38,7 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       // 文章列表数据
       articles: [],
@@ -46,63 +46,63 @@ export default {
       finished: false,
       page: 2,
       total_count: 0,
-      text: ""
-    };
+      text: ''
+    }
   },
   computed: {},
   watch: {},
-  created() {
-    this.getData();
+  created () {
+    this.getData()
   },
   methods: {
     // 先判斷一下是什么类型
-    getWhichType() {
+    getWhichType () {
       if (this.type === 1) {
-        this.text = "该用户发布的文章列表";
-        return getAllArt;
+        this.text = '该用户发布的文章列表'
+        return getAllArt
       } else if (this.type === 2) {
-        this.text = "该用户收藏的文章列表";
-        return getAllCol;
+        this.text = '该用户收藏的文章列表'
+        return getAllCol
       } else {
-        this.text = "该用户的文章浏览历史";
-        return getAllHis;
+        this.text = '该用户的文章浏览历史'
+        return getAllHis
       }
     },
     // 初始化数据
-    async getData() {
-      const isTypeFunc = this.getWhichType();
+    async getData () {
+      const isTypeFunc = this.getWhichType()
       const { data } = await isTypeFunc({
         page: 1
-      });
-      this.articles = data.data.results;
-      this.total_count = data.data.total_count;
+      })
+      this.articles = data.data.results
+      this.total_count = data.data.total_count
     },
 
-    async onLoad() {
+    async onLoad () {
       // 异步更新数据
       // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-      const isTypeFunc = this.getWhichType();
+      const isTypeFunc = this.getWhichType()
       const { data } = await isTypeFunc({
         page: this.page
-      });
-      this.articles.push(...data.data.results);
+      })
+      this.articles.push(...data.data.results)
       this.$toast({
         message: `加载${data.data.results.length}条\n该用户文章`,
-        icon: "like-o",
+        icon: 'like-o',
         duration: 500
-      });
+      })
       // 加载状态结束
-      this.loading = false;
+      this.loading = false
 
       if (this.articles.length < this.total_count) {
-        this.page += 1;
+        this.page += 1
       } else {
         // 设置全部加载完成
-        this.finished = true;
+        this.finished = true
       }
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

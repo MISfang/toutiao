@@ -1,59 +1,77 @@
 <template>
   <div>
     <div class="container02">
-      <van-radio-group v-model="radio" direction="horizontal">
-        <van-radio :name="1" shape="square" checked-color="#ee0a24"
-          >男性</van-radio
+      <van-radio-group
+        v-model="radio"
+        direction="horizontal"
+      >
+        <van-radio
+          :name="1"
+          shape="square"
+          checked-color="#ee0a24"
         >
-        <van-radio :name="0" shape="square" checked-color="#ee0a24"
-          >女性</van-radio
+          男性
+        </van-radio>
+        <van-radio
+          :name="0"
+          shape="square"
+          checked-color="#ee0a24"
         >
+          女性
+        </van-radio>
       </van-radio-group>
-      <van-button round block type="info" @click="updateSex">提交</van-button>
+      <van-button
+        round
+        block
+        type="info"
+        @click="updateSex"
+      >
+        提交
+      </van-button>
     </div>
   </div>
 </template>
 <script>
-import { updateUserProfile } from "@/api/user";
+import { updateUserProfile } from '@/api/user'
 
 export default {
-  name: "updateSex",
+  name: 'UpdateSex',
   props: {
     sex: {
       // type: Number,
       required: true
     }
   },
-  data() {
+  data () {
     return {
       radio: 1
-    };
+    }
   },
   methods: {
-    async updateSex() {
+    async updateSex () {
       if (this.radio === this.sex) {
-        this.$toast("性别未变！");
+        this.$toast('性别未变！')
       } else {
         this.$toast.loading({
           duration: 0, // 持续展示 toast
           forbidClick: true,
-          message: "性别更改中..."
-        });
+          message: '性别更改中...'
+        })
 
         const { data } = await updateUserProfile({
           gender: this.radio
-        });
+        })
 
-        if (data.message === "OK") {
+        if (data.message === 'OK') {
           this.$toast.success({
-            message: "性别更改成功"
-          });
-          this.$emit("closePopup", this.radio);
+            message: '性别更改成功'
+          })
+          this.$emit('closePopup', this.radio)
         }
       }
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 .container02 {

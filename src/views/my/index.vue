@@ -1,7 +1,10 @@
 <template>
   <div class="my-container">
     <!-- 上面的基本信息栏 -->
-    <van-cell-group class="my-info" v-if="user">
+    <van-cell-group
+      class="my-info"
+      v-if="user"
+    >
       <van-cell
         title="单元格"
         value="内容"
@@ -16,7 +19,12 @@
           fit="cover"
           class="avatar"
         />
-        <div slot="title" class="name">{{ user_data.name }}</div>
+        <div
+          slot="title"
+          class="name"
+        >
+          {{ user_data.name }}
+        </div>
         <van-button
           size="small"
           round
@@ -24,35 +32,61 @@
           class="update-btn"
           plain
           to="/user/profile"
-          >编辑资料</van-button
         >
+          编辑资料
+        </van-button>
       </van-cell>
 
       <!-- 下面的数据信息栏 -->
-      <van-grid :border="false" class="data-info">
-        <van-grid-item text="头条" class="data-info-item">
+      <van-grid
+        :border="false"
+        class="data-info"
+      >
+        <van-grid-item
+          text="头条"
+          class="data-info-item"
+        >
           <span slot="icon">{{ user_data.art_count }}</span>
         </van-grid-item>
-        <van-grid-item text="关注" class="data-info-item">
+        <van-grid-item
+          text="关注"
+          class="data-info-item"
+        >
           <span slot="icon">{{ user_data.follow_count }}</span>
         </van-grid-item>
-        <van-grid-item text="粉丝" class="data-info-item">
+        <van-grid-item
+          text="粉丝"
+          class="data-info-item"
+        >
           <span slot="icon">{{ user_data.fans_count }}</span>
         </van-grid-item>
-        <van-grid-item text="获赞" class="data-info-item">
+        <van-grid-item
+          text="获赞"
+          class="data-info-item"
+        >
           <span slot="icon">{{ user_data.like_count }}</span>
         </van-grid-item>
       </van-grid>
     </van-cell-group>
 
     <!-- 这里是未登录的样式 -->
-    <div class="not-login" v-else @click="$router.push('/login')">
-      <img src="./头像.png" class="mobile" />
+    <div
+      class="not-login"
+      v-else
+      @click="$router.push('/login')"
+    >
+      <img
+        src="./头像.png"
+        class="mobile"
+      >
       <span class="text">登录/注册</span>
     </div>
 
     <!-- 下面的收藏表 -->
-    <van-grid :column-num="2" class="nav-grid">
+    <van-grid
+      :column-num="2"
+      class="nav-grid"
+    >
       <van-grid-item
         @click="
           fenSiIsShow = true;
@@ -72,7 +106,10 @@
         text="关注列表"
       />
     </van-grid>
-    <van-grid :column-num="3" class="nav-grid">
+    <van-grid
+      :column-num="3"
+      class="nav-grid"
+    >
       <van-grid-item
         @click="
           allArtIsShow = true;
@@ -103,7 +140,12 @@
     </van-grid>
 
     <!-- 下面的导航跳转 -->
-    <van-cell title="小智同学" is-link to="" class="nav-to" />
+    <van-cell
+      title="小智同学"
+      is-link
+      to="/chat"
+      class="nav-to"
+    />
 
     <!-- 最下的退出登录 -->
     <van-button
@@ -113,8 +155,9 @@
       class="loginout_button"
       v-if="user"
       @click="onloginout"
-      >退出登录</van-button
     >
+      退出登录
+    </van-button>
 
     <!-- 再往下对应功能页面的弹出层 -->
     <van-popup
@@ -125,7 +168,10 @@
       :style="{ height: '80%' }"
       round
     >
-      <guanzhu :id="user_data.id" :type="type"> </guanzhu>
+      <guanzhu
+        :id="user_data.id"
+        :type="type"
+      />
     </van-popup>
     <!-- 粉丝的弹出层 -->
 
@@ -137,7 +183,10 @@
       :style="{ height: '80%' }"
       round
     >
-      <guanzhu :id="user_data.id" :type="type"> </guanzhu>
+      <guanzhu
+        :id="user_data.id"
+        :type="type"
+      />
     </van-popup>
 
     <!-- 用户全部文章列表 -->
@@ -149,7 +198,7 @@
       :style="{ height: '80%' }"
       round
     >
-      <newArtList :type="type2"> </newArtList>
+      <newArtList :type="type2" />
     </van-popup>
     <!-- 用户收藏的弹出层 -->
     <van-popup
@@ -160,7 +209,7 @@
       :style="{ height: '80%' }"
       round
     >
-      <newArtList :type="type2"> </newArtList>
+      <newArtList :type="type2" />
     </van-popup>
     <van-popup
       v-model="allHisIsShow"
@@ -170,22 +219,22 @@
       :style="{ height: '80%' }"
       round
     >
-      <newArtList :type="type2"> </newArtList>
+      <newArtList :type="type2" />
     </van-popup>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { getCurrentUser } from "@/api/user";
-import guanzhu from "@/views/my/component/guanzhu";
-import newArtList from "@/views/my/component/newArtList";
+import { mapState } from 'vuex'
+import { getCurrentUser } from '@/api/user'
+import guanzhu from '@/views/my/component/guanzhu'
+import newArtList from '@/views/my/component/newArtList'
 
 export default {
-  name: "My",
+  name: 'My',
   components: { guanzhu, newArtList },
   props: {},
-  data() {
+  data () {
     return {
       // 当前登录用户的基本信息
       user_data: {},
@@ -199,39 +248,39 @@ export default {
       allArtIsShow: false,
       allColIsShow: false,
       allHisIsShow: false
-    };
+    }
   },
   computed: {
-    ...mapState(["user"])
+    ...mapState(['user'])
   },
   watch: {},
-  created() {
-    this.loadCurrentUser();
+  created () {
+    this.loadCurrentUser()
   },
-  mounted() {},
+  mounted () {},
   methods: {
     // 用户退出触发方法
-    onloginout() {
+    onloginout () {
       this.$dialog
         .confirm({
-          message: "你想好了 确定要退出登录嘛？",
-          theme: "round-button"
+          message: '你想好了 确定要退出登录嘛？',
+          theme: 'round-button'
         })
         .then(() => {
           // on confirm
-          this.$store.commit("setUser", null);
+          this.$store.commit('setUser', null)
         })
         .catch(() => {
           // on cancel
-        });
+        })
     },
     // 在初始化中，获取用户的相应数据
-    async loadCurrentUser() {
-      const { data } = await getCurrentUser();
-      this.user_data = data.data;
+    async loadCurrentUser () {
+      const { data } = await getCurrentUser()
+      this.user_data = data.data
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

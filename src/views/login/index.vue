@@ -15,16 +15,23 @@
           round
           @click="popupIsShow = true"
           size="small"
-          >查看测试号</van-button
         >
+          查看测试号
+        </van-button>
       </template>
     </van-nav-bar>
 
     <!-- 轮播图 -->
     <div class="my-swipe-container">
-      <van-swipe autoplay="2000" class="my-swipe">
-        <van-swipe-item v-for="(image, index) in swiperImgs" :key="index">
-          <img v-lazy="image" />
+      <van-swipe
+        autoplay="2000"
+        class="my-swipe"
+      >
+        <van-swipe-item
+          v-for="(image, index) in swiperImgs"
+          :key="index"
+        >
+          <img v-lazy="image">
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -86,32 +93,57 @@
       </van-field>
 
       <!-- 登录按钮 -->
-      <van-button type="info" round icon="flag-o" block class="login-button">
+      <van-button
+        type="info"
+        round
+        icon="flag-o"
+        block
+        class="login-button"
+      >
         登录
       </van-button>
     </van-form>
     <!-- 下面的输入框结束 -->
 
-    <van-dialog v-model="popupIsShow" title="测试号">
+    <van-dialog
+      v-model="popupIsShow"
+      title="测试号"
+    >
       <van-cell-group inset>
-        <van-cell title="13911111111" size="large" value="246810" />
-        <van-cell title="13611111111" size="large" value="246810" />
-        <van-cell title="13922222222" size="large" value="246810" />
-        <van-cell title="17320270567" size="large" value="246810" />
+        <van-cell
+          title="13911111111"
+          size="large"
+          value="246810"
+        />
+        <van-cell
+          title="13611111111"
+          size="large"
+          value="246810"
+        />
+        <van-cell
+          title="13922222222"
+          size="large"
+          value="246810"
+        />
+        <van-cell
+          title="17320270567"
+          size="large"
+          value="246810"
+        />
       </van-cell-group>
     </van-dialog>
   </div>
 </template>
 
 <script>
-import { login, sendSms } from "@/api/user";
-import { Toast } from "vant";
+import { login, sendSms } from '@/api/user'
+import { Toast } from 'vant'
 
 export default {
-  name: "Login",
+  name: 'Login',
   components: {},
   props: {},
-  data() {
+  data () {
     return {
       // 控制倒计时是否显示的flag
       isCountDownShow: true,
@@ -121,113 +153,113 @@ export default {
 
       user: {
         // 用户登录绑定的数据
-        mobile: "",
-        code: ""
+        mobile: '',
+        code: ''
       },
       popupIsShow: false,
 
       swiperImgs: [
-        "https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27Tn71FNbLnUo29OYjP70ubzQ5HTgLZfKNRAP6xiaCczchoQjTHEHXkBGfA/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1",
-        "https://mmbiz.qpic.cn/mmbiz_png/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27Tnst2aVLnP4FoibqBIYFiccnrgtH9bLnfiaNqOrnsibeaO9rGDO14dnO4o8g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1",
-        "https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnmDKIUMSCiaCb6hcDaMVAzwoY2l0oMN4ibGbfgmp2ugOI20MHgBNtM1RQ/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1",
-        "https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnWr3hMjohvkoIRsDISF9ib3dg52YmcsrWsOHo5SK4qiagibAC62nAPfrMw/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1",
-        "https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnWQYZvkwQibtsyTCEv08IpWgz6eGck3ZxkiasyKSHy2oRL2M0qGV0PUGg/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1",
-        "https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnNfL20rOSKm5OnxEA4PZdWVfibyedCoMqf4CiciaOZZv5UNfUkEYrn7VuA/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"
+        'https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27Tn71FNbLnUo29OYjP70ubzQ5HTgLZfKNRAP6xiaCczchoQjTHEHXkBGfA/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1',
+        'https://mmbiz.qpic.cn/mmbiz_png/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27Tnst2aVLnP4FoibqBIYFiccnrgtH9bLnfiaNqOrnsibeaO9rGDO14dnO4o8g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1',
+        'https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnmDKIUMSCiaCb6hcDaMVAzwoY2l0oMN4ibGbfgmp2ugOI20MHgBNtM1RQ/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1',
+        'https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnWr3hMjohvkoIRsDISF9ib3dg52YmcsrWsOHo5SK4qiagibAC62nAPfrMw/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1',
+        'https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnWQYZvkwQibtsyTCEv08IpWgz6eGck3ZxkiasyKSHy2oRL2M0qGV0PUGg/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1',
+        'https://mmbiz.qpic.cn/mmbiz/d73yJP9ZP3a5VJ3aV6IQ8ckiaRTYx27TnNfL20rOSKm5OnxEA4PZdWVfibyedCoMqf4CiciaOZZv5UNfUkEYrn7VuA/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1'
       ],
       // 表单验证规则
       formRules: {
         mobile: [
-          { required: true, message: "请输入手机号" },
+          { required: true, message: '请输入手机号' },
           {
             pattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,
-            message: "请输入有效的手机号码"
+            message: '请输入有效的手机号码'
           }
         ],
         code: [
-          { required: true, message: "请输入验证码" },
+          { required: true, message: '请输入验证码' },
           {
             pattern: /^\d{6}$/,
-            message: "请输入6位数字验证码"
+            message: '请输入6位数字验证码'
           }
         ]
       }
-    };
+    }
   },
   methods: {
     // 登录对应方法
-    async onLogin() {
+    async onLogin () {
       // 触发登录中提示
       Toast.loading({
-        message: "登录中...",
+        message: '登录中...',
         forbidClick: true,
         duration: 0
-      });
+      })
       try {
-        const { data } = await login(this.user);
+        const { data } = await login(this.user)
         Toast({
-          message: "成功登录",
-          icon: "like-o"
-        });
+          message: '成功登录',
+          icon: 'like-o'
+        })
 
-        this.$store.commit("setUser", data.data);
+        this.$store.commit('setUser', data.data)
 
-        this.$store.commit("removeCachePage", "Layout");
+        this.$store.commit('removeCachePage', 'Layout')
 
         // 登录成功，跳转到来时的页面
-        this.$router.push("/");
+        this.$router.push('/')
       } catch (err) {
-        Toast.fail("用户未注册或者验证码有误");
-        console.dir("验证码有误，登录失败", err);
+        Toast.fail('用户未注册或者验证码有误')
+        console.dir('验证码有误，登录失败', err)
       }
     },
 
     // 拿到验证不通过的数据
-    onFailed(error) {
+    onFailed (error) {
       if (error.errors[0]) {
         Toast({
           message: error.errors[0].message,
-          position: "top"
-        });
+          position: 'top'
+        })
       }
     },
 
     // 发送验证码
-    async onSendSms() {
+    async onSendSms () {
       try {
-        await this.$refs["login-form"].validate("mobile");
+        await this.$refs['login-form'].validate('mobile')
 
         // 解决网络较慢时，出现瞬时发出多次请求的问题
-        this.idSendSmsLoading = true;
+        this.idSendSmsLoading = true
 
         // 验证通过，发送请求
-        const res = await sendSms(this.user.mobile);
+        // const res = await sendSms(this.user.mobile)
 
         // 发送请求的同时，把发送按钮换成倒计时按钮
-        this.isCountDownShow = false;
+        this.isCountDownShow = false
       } catch (err) {
-        let message = "";
+        let message = ''
         if (err && err.response && err.response.status === 429) {
-          message = "发送过于频繁，请稍候重试！";
-        } else if (err.message === "请输入有效的手机号码") {
-          message = err.message;
-        } else if (err.message === "请输入手机号") {
-          message = err.message;
-        } else if (err.message === "Network Error") {
-          message = "网络错误，请检查网络连接！";
+          message = '发送过于频繁，请稍候重试！'
+        } else if (err.message === '请输入有效的手机号码') {
+          message = err.message
+        } else if (err.message === '请输入手机号') {
+          message = err.message
+        } else if (err.message === 'Network Error') {
+          message = '网络错误，请检查网络连接！'
         } else {
-          message = "未知原因，发送失败，请稍候重试！";
+          message = '未知原因，发送失败，请稍候重试！'
         }
         Toast({
           message,
-          position: "top"
-        });
+          position: 'top'
+        })
       }
 
       // 无论验证码发送成功还是失败，都要关闭loading
-      this.idSendSmsLoading = false;
+      this.idSendSmsLoading = false
     }
   }
-};
+}
 </script>
 
 <style lang="less">

@@ -1,7 +1,10 @@
 <template>
   <div class="container02">
     <van-form @submit="onSubmit">
-      <van-cell title="原昵称" :value="name" />
+      <van-cell
+        title="原昵称"
+        :value="name"
+      />
       <van-field
         v-model="newName"
         name="新昵称"
@@ -14,61 +17,66 @@
         ]"
       />
       <div style="margin: 16px;">
-        <van-button round block type="info" native-type="submit"
-          >提交</van-button
+        <van-button
+          round
+          block
+          type="info"
+          native-type="submit"
         >
+          提交
+        </van-button>
       </div>
     </van-form>
   </div>
 </template>
 <script>
-import { updateUserProfile } from "@/api/user";
+import { updateUserProfile } from '@/api/user'
 export default {
-  name: "updateName",
+  name: 'UpdateName',
   props: {
     name: {
       // type: String,
       required: true
     }
   },
-  data() {
+  data () {
     return {
-      newName: ""
-    };
+      newName: ''
+    }
   },
   methods: {
-    async onSubmit({ 新昵称 }) {
+    async onSubmit ({ 新昵称 }) {
       this.$toast.loading({
         duration: 0, // 持续展示 toast
         forbidClick: true,
-        message: "昵称更改中..."
-      });
+        message: '昵称更改中...'
+      })
       try {
         const { data } = await updateUserProfile({
           name: 新昵称
-        });
+        })
 
-        if (data.message === "OK") {
+        if (data.message === 'OK') {
           this.$toast.success({
-            message: "昵称更改成功"
-          });
-          this.$emit("closePopup", 新昵称);
-          this.newName = "";
+            message: '昵称更改成功'
+          })
+          this.$emit('closePopup', 新昵称)
+          this.newName = ''
         }
       } catch (err) {
         if (err && err.response && err.response.status === 409) {
-          this.$toast.fail("改用户名已存在，请换一个！");
-          this.newName = "";
+          this.$toast.fail('改用户名已存在，请换一个！')
+          this.newName = ''
         }
       }
     },
 
     // 表单校验的
-    validator(val) {
-      return val.length >= 3 && val.length <= 7;
+    validator (val) {
+      return val.length >= 3 && val.length <= 7
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 .container02 {

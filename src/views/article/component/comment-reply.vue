@@ -1,10 +1,15 @@
 <template>
   <div class="container">
     <van-sticky :offset-top="66.52">
-      <van-nav-bar :title="`${reply_count}条回复`" class="top-title">
-      </van-nav-bar>
-      <comment-item :item="replyTargetComment"></comment-item>
-      <van-cell title="↑该评论所有回复 ↓" class="huifu"></van-cell>
+      <van-nav-bar
+        :title="`${reply_count}条回复`"
+        class="top-title"
+      />
+      <comment-item :item="replyTargetComment" />
+      <van-cell
+        title="↑该评论所有回复 ↓"
+        class="huifu"
+      />
     </van-sticky>
 
     <div class="bottom">
@@ -12,8 +17,8 @@
         :source="replyTargetComment.com_id"
         type="c"
         :list="commentList"
-      ></comment-list>
-      <div class="ph"></div>
+      />
+      <div class="ph" />
     </div>
 
     <!-- 底部的写评论区域 -->
@@ -23,8 +28,9 @@
         round
         class="pinlun-btn"
         @click="popupIsShow = true"
-        >写评论</van-button
       >
+        写评论
+      </van-button>
     </div>
 
     <!-- 写评论时候的弹出层 -->
@@ -39,31 +45,31 @@
       <!-- 写评论区域的内容 -->
       <post-comment
         :target="com_id"
-        :articleId="articleId"
+        :article-id="articleId"
         @post-success="onPostSuccess"
-      ></post-comment>
+      />
     </van-popup>
   </div>
 </template>
 <script>
-import commentItem from "@/views/article/component/comment-item";
-import commentList from "@/views/article/component/comment-list";
-import postComment from "@/views/article/component/post-comment";
+import commentItem from '@/views/article/component/comment-item'
+import commentList from '@/views/article/component/comment-list'
+import postComment from '@/views/article/component/post-comment'
 
 export default {
-  name: "commentReply",
+  name: 'CommentReply',
   components: {
     commentItem,
     commentList,
     postComment
   },
-  data() {
+  data () {
     return {
       ...this.replyTargetComment,
       // 控制写回复评论的falg
       popupIsShow: false,
       commentList: []
-    };
+    }
   },
   props: {
     replyTargetComment: {
@@ -76,17 +82,17 @@ export default {
     }
   },
   methods: {
-    onPostSuccess(comment) {
-      this.commentList.unshift(comment);
-      this.reply_count++;
-      this.popupIsShow = false;
+    onPostSuccess (comment) {
+      this.commentList.unshift(comment)
+      this.reply_count++
+      this.popupIsShow = false
       this.$notify({
-        type: "success",
+        type: 'success',
         message: `该评论的回复数量现为${this.reply_count}条`
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

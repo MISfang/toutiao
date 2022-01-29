@@ -12,16 +12,35 @@
       inactive-color="#2d2b55"
       route
     >
-      <van-tabbar-item replace to="/" icon="home-o">
+      <van-tabbar-item
+        replace
+        to="/"
+        icon="home-o"
+      >
         首页
       </van-tabbar-item>
-      <van-tabbar-item replace to="/qa" icon="fire-o" badge="20">
+      <van-tabbar-item
+        replace
+        to="/qa"
+        icon="fire-o"
+        badge="20"
+      >
         问答
       </van-tabbar-item>
-      <van-tabbar-item replace to="/video" icon="play-circle-o" dot>
+      <van-tabbar-item
+        replace
+        to="/video"
+        icon="play-circle-o"
+        dot
+      >
         视频
       </van-tabbar-item>
-      <van-tabbar-item replace to="/my" icon="manager-o" badge="4">
+      <van-tabbar-item
+        replace
+        to="/my"
+        icon="manager-o"
+        badge="4"
+      >
         我的
       </van-tabbar-item>
     </van-tabbar>
@@ -30,16 +49,16 @@
 
 <script>
 export default {
-  name: "Layout",
-  data() {
+  name: 'Layout',
+  data () {
     return {
-      active: "home"
-    };
+      active: 'home'
+    }
   },
-  mounted() {
-    this.$store.commit("addCachePage", "Layout");
+  mounted () {
+    this.$store.commit('addCachePage', 'Layout')
   }
-};
+}
 </script>
 
 <style lang="less" scoped></style>

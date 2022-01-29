@@ -8,8 +8,10 @@
       class="cellGroup"
     >
       <template v-if="type === 'a'">
-        <h4 class="bigTitle">全部评论</h4>
-        <div class="xian"></div>
+        <h4 class="bigTitle">
+          全部评论
+        </h4>
+        <div class="xian" />
       </template>
       <comment-item
         v-for="(item, index) in list"
@@ -17,29 +19,29 @@
         :item="item"
         @reply="$emit('reply', $event)"
         :type="type"
-      ></comment-item>
+      />
     </van-list>
   </div>
 </template>
 
 <script>
-import { getComments } from "@/api/comment";
-import commentItem from "./comment-item";
-import "@/utils/dayjs";
+import { getComments } from '@/api/comment'
+import commentItem from './comment-item'
+import '@/utils/dayjs'
 
 export default {
-  name: "commentList",
+  name: 'CommentList',
   components: {
     commentItem
   },
-  data() {
+  data () {
     return {
       loading: false,
       finished: false,
       offset: null,
       limit: 10,
-      finishText: this.type === "a" ? "没有评论了" : "没有回复了"
-    };
+      finishText: this.type === 'a' ? '没有评论了' : '没有回复了'
+    }
   },
   props: {
     source: {
@@ -53,35 +55,35 @@ export default {
     // 评论的类型
     type: {
       type: String,
-      default: "a"
+      default: 'a'
     }
   },
   methods: {
-    async onpinlun() {
+    async onpinlun () {
       // 异步更新数据
       // setTimeout 仅做示例，真实场景中一般为 ajax 请求
       const { data } = await getComments({
         type: this.type,
         source: this.source.toString(),
-        offset: this.offset, //获取的页码
-        limit: this.limit //每页的数据量
-      });
-      const { results } = data.data;
-      this.list.push(...results);
+        offset: this.offset, // 获取的页码
+        limit: this.limit // 每页的数据量
+      })
+      const { results } = data.data
+      this.list.push(...results)
 
-      this.$emit("update-total-count", data.data.total_count);
+      this.$emit('update-total-count', data.data.total_count)
       // 关闭本次评论加载
-      this.loading = false;
+      this.loading = false
 
       // 判断是否还有数据
       if (results.length) {
-        this.offset = data.data.last_id;
+        this.offset = data.data.last_id
       } else {
-        this.finished = true;
+        this.finished = true
       }
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

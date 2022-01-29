@@ -1,6 +1,10 @@
 <template>
   <div class="home-container">
-    <van-nav-bar class="nav-bar" left-text="宇龙头条" @click-left="onClickLeft">
+    <van-nav-bar
+      class="nav-bar"
+      left-text="宇龙头条"
+      @click-left="onClickLeft"
+    >
       <template #right>
         <van-button
           slot="title"
@@ -10,8 +14,9 @@
           class="search-btn"
           size="small"
           @click="searchPopupIsShow = true"
-          >搜索</van-button
         >
+          搜索
+        </van-button>
       </template>
     </van-nav-bar>
 
@@ -24,25 +29,44 @@
       theme="round-button"
       :close-on-click-overlay="true"
     >
-      <van-image fit="cover" src="./Snipaste_2021-08-10_22-46-19.png" />
+      <van-image
+        fit="cover"
+        src="./Snipaste_2022-01-17_16-10-29.png"
+      />
     </van-dialog>
     <!-- 对应弹出的dialog结束 -->
 
     <!-- 下面的标签组件 -->
     <!-- sticky animated swipeable -->
-    <van-tabs v-model="active" swipeable sticky animated class="channels-tab">
+    <van-tabs
+      v-model="active"
+      swipeable
+      sticky
+      animated
+      class="channels-tab"
+    >
       <van-tab
         v-for="channel in channels"
         :title="channel.name"
         :key="channel.id"
       >
-        <article-list ref="setTop" :channel="channel" id="list"></article-list>
+        <article-list
+          ref="setTop"
+          :channel="channel"
+          id="list"
+        />
       </van-tab>
       <!-- 汉堡按钮对应位置的站位元素 -->
-      <div slot="nav-right" class="hanbao-placeholder"></div>
+      <div
+        slot="nav-right"
+        class="hanbao-placeholder"
+      />
 
       <!-- 频道右边的汉堡按钮 -->
-      <div slot="nav-right" class="hanbao-btn">
+      <div
+        slot="nav-right"
+        class="hanbao-btn"
+      >
         <van-icon
           name="wap-nav"
           color="#ee0a24"
@@ -72,7 +96,7 @@
         @switch="onTabSwitch"
         :active="active"
         ref="channelEdit"
-      ></channel-edit>
+      />
     </van-popup>
 
     <!-- 搜索对应的弹出层页面 -->
@@ -86,7 +110,10 @@
       @closed="sonSousuoReset"
     >
       <!-- 对应的搜索页组件 -->
-      <search ref="sonReset" @closePopup="searchPopupIsShow = false"></search>
+      <search
+        ref="sonReset"
+        @closePopup="searchPopupIsShow = false"
+      />
     </van-popup>
     <!-- 弹出层结束 -->
 
@@ -99,7 +126,11 @@
       timing="ease"
     >
       <div class="back-top">
-        <van-icon name="fire" color="#2892ff" size="48" />
+        <van-icon
+          name="fire"
+          color="#2892ff"
+          size="48"
+        />
         <span class="text">返回顶部</span>
       </div>
     </vm-back-top>
@@ -107,16 +138,16 @@
 </template>
 
 <script>
-import { getUserChannels } from "@/api/news";
-import ArticleList from "./components/article-list";
-import ChannelEdit from "./components/channel-edit-view";
-import Search from "./components/search";
-import { mapState } from "vuex";
-import { getItem, setItem } from "@/utils/storeage";
-import VmBackTop from "vue-multiple-back-top";
+import { getUserChannels } from '@/api/news'
+import ArticleList from './components/article-list'
+import ChannelEdit from './components/channel-edit-view'
+import Search from './components/search'
+import { mapState } from 'vuex'
+import { getItem } from '@/utils/storeage'
+import VmBackTop from 'vue-multiple-back-top'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     ArticleList,
     ChannelEdit,
@@ -124,7 +155,7 @@ export default {
     VmBackTop
   },
   props: {},
-  data() {
+  data () {
     return {
       // 控制宇龙头条显示的flag
       yulonngIsShow: false,
@@ -137,57 +168,57 @@ export default {
       popupIsShow: false,
       // 控制搜索框的弹出层
       searchPopupIsShow: false
-    };
+    }
   },
   computed: {
-    ...mapState(["user", "user2"])
+    ...mapState(['user', 'user2'])
   },
   watch: {},
-  created() {
-    this.loadChannels();
+  created () {
+    this.loadChannels()
   },
-  mounted() {},
+  mounted () {},
   methods: {
     // 点击 宇龙头条 触发的事件
-    onClickLeft() {
-      this.yulonngIsShow = true;
+    onClickLeft () {
+      this.yulonngIsShow = true
     },
 
     // 初始化频道列表
-    async loadChannels() {
-      let channels = [];
+    async loadChannels () {
+      let channels = []
 
-      // 判断用户数是否登录来渲染频道列表
+      // 判断用户是否登录来渲染频道列表
       // if (this.user) {
       //   const { data } = await getUserChannels();
       //   channels = data.data.channels;
       // } else {
-      const localData = getItem("user-channels");
+      const localData = getItem('user-channels')
       if (localData) {
-        channels = localData;
+        channels = localData
       } else {
-        const { data } = await getUserChannels();
-        channels = data.data.channels;
+        const { data } = await getUserChannels()
+        channels = data.data.channels
       }
       // }
-      this.channels = channels;
+      this.channels = channels
     },
     // 子组件提交的事件，切换频道对应的逻辑
-    close() {
-      this.popupIsShow = false;
+    close () {
+      this.popupIsShow = false
     },
-    onTabSwitch(id) {
-      this.active = id;
+    onTabSwitch (id) {
+      this.active = id
     },
-    closePopup() {
-      this.$refs.channelEdit.isClearShow = false;
+    closePopup () {
+      this.$refs.channelEdit.isClearShow = false
     },
     // 向子组件传值
-    sonSousuoReset() {
-      this.$refs.sonReset.sonResetSousuo();
+    sonSousuoReset () {
+      this.$refs.sonReset.sonResetSousuo()
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

@@ -8,24 +8,32 @@
         :src="itemData.photo"
         round
       />
-      <van-checkbox v-model="itemData.mutual_follow">是否互粉</van-checkbox>
+      <van-checkbox v-model="itemData.mutual_follow">
+        是否互粉
+      </van-checkbox>
     </div>
     <van-cell-group>
-      <van-cell title="用户名" :value="itemData.name" />
-      <van-cell title="粉丝总数" :value="itemData.fans_count" />
+      <van-cell
+        title="用户名"
+        :value="itemData.name"
+      />
+      <van-cell
+        title="粉丝总数"
+        :value="itemData.fans_count"
+      />
     </van-cell-group>
   </div>
 </template>
 <script>
 export default {
-  name: "userItem",
+  name: 'UserItem',
   props: {
     itemData: {
       type: Object,
       required: true
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 .image {

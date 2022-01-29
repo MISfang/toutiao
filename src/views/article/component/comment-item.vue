@@ -8,13 +8,21 @@
       :src="item.aut_photo"
       class="aut-img"
     />
-    <div class="title" slot="title">
-      <div class="name">{{ item.aut_name }}</div>
+    <div
+      class="title"
+      slot="title"
+    >
+      <div class="name">
+        {{ item.aut_name }}
+      </div>
       <div class="content">
         {{ item.content }}
       </div>
       <div class="Scontainer">
-        <span class="pubdate" :class="type !== 'a' ? 'punlun02' : ''">{{
+        <span
+          class="pubdate"
+          :class="type !== 'a' ? 'punlun02' : ''"
+        >{{
           item.pubdate | datetime("MM-DD HH:ss")
         }}</span>
         <van-button
@@ -25,30 +33,34 @@
           class="recomment-btn"
           plain
           @click="$emit('reply', item)"
-          >{{ item.reply_count }}回复</van-button
         >
+          {{ item.reply_count }}回复
+        </van-button>
       </div>
     </div>
 
     <!-- 右边内容 -->
 
-    <div class="like-warp" v-if="type === 'a'">
+    <div
+      class="like-warp"
+      v-if="type === 'a'"
+    >
       <van-icon
         :name="item.is_liking ? 'like' : 'like-o'"
         :color="item.is_liking ? 'red' : ''"
         size="24"
         @click="ondianzan"
-      ></van-icon>
+      />
       <span class="like-count">{{ item.like_count }}</span>
     </div>
   </van-cell>
 </template>
 
 <script>
-import { likeComments, deletelikeComments } from "@/api/comment";
-import { Toast } from "vant";
+import { likeComments, deletelikeComments } from '@/api/comment'
+import { Toast } from 'vant'
 export default {
-  name: "comment-item",
+  name: 'CommentItem',
   props: {
     item: {
       type: Object,
@@ -60,28 +72,28 @@ export default {
   },
   methods: {
     // 点赞的方法
-    async ondianzan() {
+    async ondianzan () {
       this.$toast.loading({
-        message: "稍等...",
+        message: '稍等...',
         forbidClick: true
-      });
-      const comment_id = this.item.com_id.toString();
+      })
+      const comment_id = this.item.com_id.toString()
       if (this.item.is_liking) {
-        await deletelikeComments(comment_id);
-        this.item.like_count--;
+        await deletelikeComments(comment_id)
+        this.item.like_count--
       } else {
-        await likeComments(comment_id);
-        this.item.like_count++;
+        await likeComments(comment_id)
+        this.item.like_count++
       }
 
-      this.item.is_liking = !this.item.is_liking;
+      this.item.is_liking = !this.item.is_liking
       Toast({
-        type: "success",
-        message: `${this.item.is_liking ? "" : "取消"}点赞成功`
-      });
+        type: 'success',
+        message: `${this.item.is_liking ? '' : '取消'}点赞成功`
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

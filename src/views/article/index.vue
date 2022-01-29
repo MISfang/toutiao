@@ -2,9 +2,13 @@
   <div>
     <!-- 加载内容时候的遮罩层 -->
     <van-overlay :show="zhezhashow">
-      <van-loading color="#0094ff" class="wrapper" vertical
-        >正在加载文章...</van-loading
+      <van-loading
+        color="#0094ff"
+        class="wrapper"
+        vertical
       >
+        正在加载文章...
+      </van-loading>
     </van-overlay>
     <!-- 最上面的蓝色导航栏 -->
 
@@ -14,15 +18,21 @@
       @click-left="$router.back()"
       class="app-nav-bar"
     />
-    <div class="placeholder"></div>
+    <div class="placeholder" />
 
     <!-- 下面的正文卡片 -->
     <div class="bgc">
       <div class="card-container">
-        <h2 class="title">{{ data.title }}</h2>
+        <h2 class="title">
+          {{ data.title }}
+        </h2>
         <!-- 粘性布局 -->
         <van-sticky :offset-top="30">
-          <van-cell :title="data.aut_name" class="author" center>
+          <van-cell
+            :title="data.aut_name"
+            class="author"
+            center
+          >
             <van-image
               slot="icon"
               width="50"
@@ -32,7 +42,9 @@
               :src="data.aut_photo"
               class="author-img"
             />
-            <div slot="label">{{ data.pubdate | relativeTime }}</div>
+            <div slot="label">
+              {{ data.pubdate | relativeTime }}
+            </div>
             <van-button
               :icon="data.is_followed ? '' : 'plus'"
               :type="data.is_followed ? 'default' : 'info'"
@@ -42,18 +54,19 @@
               @click="handleUserFollow"
               :loading="isGuanzhuLoading"
               loading-type="spinner"
-              >{{ data.is_followed ? "取消关注" : "关注" }}</van-button
             >
+              {{ data.is_followed ? "取消关注" : "关注" }}
+            </van-button>
           </van-cell>
         </van-sticky>
 
-        <div class="xian"></div>
+        <div class="xian" />
         <!-- 下面的正文内容 -->
         <div
           class="textcontent markdown-body"
           v-html="data.content"
           ref="article_content"
-        ></div>
+        />
       </div>
 
       <!-- 文章评论列表 -->
@@ -62,7 +75,7 @@
         @update-total-count="total_count = $event"
         :list="newCommentList"
         @reply="onReply"
-      ></comment-list>
+      />
       <!-- 文章评论列表 -->
     </div>
 
@@ -73,10 +86,15 @@
         round
         class="pinlun-btn"
         @click="popupIsShow = true"
-        >写评论</van-button
       >
+        写评论
+      </van-button>
       <!-- 右边的徽标 -->
-      <van-icon size="28" name="chat-o" :badge="total_count" />
+      <van-icon
+        size="28"
+        name="chat-o"
+        :badge="total_count"
+      />
       <van-icon
         size="28"
         :name="data.is_collected ? 'star' : 'star-o'"
@@ -89,7 +107,11 @@
         :color="data.attitude === 1 ? '#ee0a24' : ''"
         @click="Ondianzan"
       />
-      <van-icon size="28" name="share" @click="showShare = true" />
+      <van-icon
+        size="28"
+        name="share"
+        @click="showShare = true"
+      />
     </div>
 
     <van-share-sheet
@@ -111,7 +133,7 @@
       <post-comment
         :target="articleId"
         @post-success="onPostSuccess"
-      ></post-comment>
+      />
     </van-popup>
 
     <!-- 再往下评论回复的弹出层 -->
@@ -124,10 +146,10 @@
       :style="{ height: '90%' }"
     >
       <comment-reply
-        :articleId="articleId"
+        :article-id="articleId"
         v-if="isReplyShow"
-        :replyTargetComment="replyTargetComment"
-      ></comment-reply>
+        :reply-target-comment="replyTargetComment"
+      />
     </van-popup>
 
     <!-- 回到顶部按钮 -->
@@ -139,7 +161,11 @@
       timing="ease"
     >
       <div class="back-top">
-        <van-icon name="fire" color="#2892ff" size="48" />
+        <van-icon
+          name="fire"
+          color="#2892ff"
+          size="48"
+        />
         <span class="text">返回顶部</span>
       </div>
     </vm-back-top>
@@ -147,9 +173,9 @@
 </template>
 
 <script>
-import { detailArticle } from "@/api/news";
-import "./github-markdown.css";
-import VmBackTop from "vue-multiple-back-top";
+import { detailArticle } from '@/api/news'
+import './github-markdown.css'
+import VmBackTop from 'vue-multiple-back-top'
 import {
   addFollow,
   deleteFollow,
@@ -157,15 +183,15 @@ import {
   deleteColected,
   addLike,
   deleteLike
-} from "@/api/user";
+} from '@/api/user'
 // 图片预览组件
-import { ImagePreview, Toast, Sticky } from "vant";
-import commentList from "@/views/article/component/comment-list";
-import postComment from "@/views/article/component/post-comment";
-import commentReply from "@/views/article/component/comment-reply";
+import { ImagePreview, Toast, Sticky } from 'vant'
+import commentList from '@/views/article/component/comment-list'
+import postComment from '@/views/article/component/post-comment'
+import commentReply from '@/views/article/component/comment-reply'
 export default {
-  name: "ArticleIndex",
-  data() {
+  name: 'ArticleIndex',
+  data () {
     return {
       data: {},
 
@@ -191,23 +217,23 @@ export default {
       showShare: false,
       options: [
         [
-          { name: "微信", icon: "wechat" },
-          { name: "朋友圈", icon: "wechat-moments" },
-          { name: "微博", icon: "weibo" },
-          { name: "QQ", icon: "qq" }
+          { name: '微信', icon: 'wechat' },
+          { name: '朋友圈', icon: 'wechat-moments' },
+          { name: '微博', icon: 'weibo' },
+          { name: 'QQ', icon: 'qq' }
         ],
         [
-          { name: "复制链接", icon: "link" },
-          { name: "分享海报", icon: "poster" },
-          { name: "二维码", icon: "qrcode" },
-          { name: "小程序码", icon: "weapp-qrcode" }
+          { name: '复制链接', icon: 'link' },
+          { name: '分享海报', icon: 'poster' },
+          { name: '二维码', icon: 'qrcode' },
+          { name: '小程序码', icon: 'weapp-qrcode' }
         ]
       ],
 
       // 评论回复的展示开关
       isReplyShow: false,
       replyTargetComment: {}
-    };
+    }
   },
   components: {
     commentList,
@@ -221,31 +247,31 @@ export default {
       required: true
     }
   },
-  created() {
-    this.loadArticle();
+  created () {
+    this.loadArticle()
   },
   methods: {
     // 加载文章内容
-    async loadArticle() {
-      this.zhezhashow = true;
-      const { data } = await detailArticle(this.articleId);
-      this.data = data.data;
+    async loadArticle () {
+      this.zhezhashow = true
+      const { data } = await detailArticle(this.articleId)
+      this.data = data.data
       if (this.data) {
-        this.zhezhashow = false;
+        this.zhezhashow = false
       }
       // 图片预览处理方法
       this.$nextTick(() => {
-        this.handleImage();
-      });
+        this.handleImage()
+      })
     },
 
     // 处理图片预览的方法
-    handleImage() {
-      const articleContent = this.$refs.article_content;
-      const allImg = articleContent.querySelectorAll("img");
-      const imgPaths = [];
+    handleImage () {
+      const articleContent = this.$refs.article_content
+      const allImg = articleContent.querySelectorAll('img')
+      const imgPaths = []
       allImg.forEach((img, index) => {
-        imgPaths.push(img.src);
+        imgPaths.push(img.src)
         img.onclick = () => {
           // 调用vant组件的预览图片的方法
           ImagePreview({
@@ -256,80 +282,80 @@ export default {
             showIndicators: true,
             maxZoom: 10,
             minZoom: 0.1,
-            closeIcon: "close"
-          });
-        };
-      });
+            closeIcon: 'close'
+          })
+        }
+      })
     },
 
     // 用户关注的方法
-    async handleUserFollow() {
-      this.isGuanzhuLoading = true;
+    async handleUserFollow () {
+      this.isGuanzhuLoading = true
       if (this.data.is_followed) {
-        await deleteFollow(this.data.aut_id);
-        Toast.success("取消成功！");
+        await deleteFollow(this.data.aut_id)
+        Toast.success('取消成功！')
       } else {
-        await addFollow(this.data.aut_id);
-        Toast.success("关注成功！");
+        await addFollow(this.data.aut_id)
+        Toast.success('关注成功！')
       }
-      this.data.is_followed = !this.data.is_followed;
-      this.isGuanzhuLoading = false;
+      this.data.is_followed = !this.data.is_followed
+      this.isGuanzhuLoading = false
     },
 
     // 收藏文章的方法
-    async Onshoucang() {
+    async Onshoucang () {
       this.$toast.loading({
-        message: "稍等...",
+        message: '稍等...',
         forbidClick: true
-      });
+      })
       if (this.data.is_collected) {
-        await deleteColected(this.articleId);
+        await deleteColected(this.articleId)
       } else {
-        await colected(this.articleId);
+        await colected(this.articleId)
       }
-      this.data.is_collected = !this.data.is_collected;
+      this.data.is_collected = !this.data.is_collected
       Toast({
-        type: "success",
-        message: `${this.data.is_collected ? "" : "取消"}收藏成功`
-      });
+        type: 'success',
+        message: `${this.data.is_collected ? '' : '取消'}收藏成功`
+      })
     },
 
     // 点赞文章的方法
-    async Ondianzan() {
+    async Ondianzan () {
       this.$toast.loading({
-        message: "稍等...",
+        message: '稍等...',
         forbidClick: true
-      });
+      })
       if (this.data.attitude === 1) {
-        await deleteColected(this.articleId);
-        this.data.attitude = -1;
+        await deleteColected(this.articleId)
+        this.data.attitude = -1
       } else {
-        await colected(this.articleId);
-        this.data.attitude = 1;
+        await colected(this.articleId)
+        this.data.attitude = 1
       }
       Toast({
-        type: "success",
-        message: `${this.data.attitude === 1 ? "" : "取消"}点赞成功`
-      });
+        type: 'success',
+        message: `${this.data.attitude === 1 ? '' : '取消'}点赞成功`
+      })
     },
 
     // 处理子组件发布评论的方法
-    onPostSuccess(newCommentObj) {
+    onPostSuccess (newCommentObj) {
       // 成功获取数据以后先关闭写评论的弹出层
-      this.popupIsShow = false;
+      this.popupIsShow = false
       // 再把评论对象添加到评论列表最上面
-      this.newCommentList.unshift(newCommentObj);
+      this.newCommentList.unshift(newCommentObj)
       // 再把品论总数量加一
-      this.total_count++;
+      this.total_count++
     },
 
     // 点击了评论回复的方法
-    onReply(comment) {
-      this.replyTargetComment = comment;
-      this.isReplyShow = true;
+    onReply (comment) {
+      this.replyTargetComment = comment
+      this.isReplyShow = true
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

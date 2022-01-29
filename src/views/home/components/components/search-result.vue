@@ -18,9 +18,14 @@
           }
         }"
       >
-        <div slot="title" v-html="highlight(item.title)"></div>
+        <div
+          slot="title"
+          v-html="highlight(item.title)"
+        />
         <template #right-icon>
-          <div class="xuhao">{{ id + 1 }}</div>
+          <div class="xuhao">
+            {{ id + 1 }}
+          </div>
         </template>
       </van-cell>
     </van-list>
@@ -28,20 +33,20 @@
 </template>
 
 <script>
-import { searchResult } from "@/api/search.js";
-import { Toast } from "vant";
+import { searchResult } from '@/api/search.js'
+import { Toast } from 'vant'
 
 export default {
-  name: "searchResult",
+  name: 'SearchResult',
 
-  data() {
+  data () {
     return {
       list: [],
       loading: false,
       finished: false,
-      page: 1, //页码
-      per_page: 10 //每页数据量的大小
-    };
+      page: 1, // 页码
+      per_page: 10 // 每页数据量的大小
+    }
   },
   props: {
     searchText: {
@@ -50,59 +55,59 @@ export default {
     }
   },
   methods: {
-    async onLoad() {
+    async onLoad () {
       const { data } = await searchResult({
-        page: this.page, //这个是页码
-        per_page: this.per_page, //每页的数据量
+        page: this.page, // 这个是页码
+        per_page: this.per_page, // 每页的数据量
         q: this.searchText
-      });
-      const { results } = data.data;
-      this.list.push(...results);
+      })
+      const { results } = data.data
+      this.list.push(...results)
       console.log(
-        "%c 🥃 this.list: ",
-        "font-size:20px;background-color: #2EAFB0;color:#fff;",
+        '%c 🥃 this.list: ',
+        'font-size:20px;background-color: #2EAFB0;color:#fff;',
         this.list
-      );
+      )
 
       if (results.length === 0) {
         Toast({
-          message: "搜索无结果",
-          icon: "warning-o",
+          message: '搜索无结果',
+          icon: 'warning-o',
           duration: 2000
-        });
+        })
       }
       // 然后关闭本次loading
-      this.loading = false;
+      this.loading = false
 
       // 如果还有数据，就更新下一次数据
       if (results.length) {
-        this.page++;
+        this.page++
         Toast({
-          message: "加载搜索\n结果成功",
-          icon: "like-o",
+          message: '加载搜索\n结果成功',
+          icon: 'like-o',
           duration: 500
-        });
+        })
       } else {
-        this.finished = true;
+        this.finished = true
         Toast({
-          message: "没有更多\n数据啦!",
-          icon: "warning-o",
+          message: '没有更多\n数据啦!',
+          icon: 'warning-o',
           duration: 500
-        });
+        })
       }
     },
 
     // 处理关键字高亮的函数
-    highlight(str) {
-      const ZZ = new RegExp(this.searchText, "gi");
+    highlight (str) {
+      const ZZ = new RegExp(this.searchText, 'gi')
       const res = str.replace(
         ZZ,
         `<span style="color:#2892ff;font-weight:700;font-size:15px">${this.searchText}</span>`
-      );
-      return res;
+      )
+      return res
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

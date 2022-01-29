@@ -11,18 +11,23 @@
       class="input"
     />
     <div class="btn-warp">
-      <van-button round type="info" class="button" @click="onfabu"
-        >发布</van-button
+      <van-button
+        round
+        type="info"
+        class="button"
+        @click="onfabu"
       >
+        发布
+      </van-button>
     </div>
   </div>
 </template>
 
 <script>
-import { addComments } from "@/api/comment";
-import { Notify } from "vant";
+import { addComments } from '@/api/comment'
+import { Notify } from 'vant'
 export default {
-  name: "postComment",
+  name: 'PostComment',
   props: {
     target: {
       type: [String, Object, Number],
@@ -35,49 +40,49 @@ export default {
       default: null
     }
   },
-  data() {
+  data () {
     return {
       // 评论的内容
-      pinglunMessage: ""
-    };
+      pinglunMessage: ''
+    }
   },
   methods: {
     // 发布评论的方法
-    async onfabu() {
-      if (this.pinglunMessage === "") {
+    async onfabu () {
+      if (this.pinglunMessage === '') {
         this.$notify({
-          type: "primary",
-          message: "发布内容不能为空",
+          type: 'primary',
+          message: '发布内容不能为空',
           duration: 1.5 * 1000
-        });
+        })
       } else {
         this.$toast.loading({
           duration: 0, // 持续展示 toast
-          message: "评论发布中...",
+          message: '评论发布中...',
           forbidClick: true
-        });
+        })
 
-        const articleId = this.articleId ? this.articleId.toString() : null;
+        const articleId = this.articleId ? this.articleId.toString() : null
 
         const { data } = await addComments({
           target: this.target.toString(),
           content: this.pinglunMessage,
           art_id: articleId
-        });
+        })
         // 获取发布数据成功，向父组件提交事件
-        this.$emit("post-success", data.data.new_obj);
+        this.$emit('post-success', data.data.new_obj)
         // 发布成功以后展示一下成功提示
         if (data) {
           this.$toast.success({
-            message: "发布成功！",
+            message: '发布成功！',
             duration: 1200
-          });
-          this.pinglunMessage = "";
+          })
+          this.pinglunMessage = ''
         }
       }
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

@@ -6,7 +6,7 @@
         title="个人信息"
         left-arrow
         @click-left="$router.back()"
-      ></van-nav-bar>
+      />
       <van-cell-group>
         <van-cell
           class="first-cell"
@@ -16,7 +16,10 @@
           value="具体内容"
         />
         <van-swipe-cell>
-          <van-cell title="头像" center>
+          <van-cell
+            title="头像"
+            center
+          >
             <van-image
               round
               width="100"
@@ -36,7 +39,11 @@
           </template>
         </van-swipe-cell>
         <van-swipe-cell>
-          <van-cell title="昵称" center :value="message.name" />
+          <van-cell
+            title="昵称"
+            center
+            :value="message.name"
+          />
           <template #right>
             <van-button
               square
@@ -64,7 +71,11 @@
         </van-swipe-cell>
 
         <van-swipe-cell>
-          <van-cell title="生日" center :value="message.birthday" />
+          <van-cell
+            title="生日"
+            center
+            :value="message.birthday"
+          />
           <template #right>
             <van-button
               square
@@ -92,8 +103,10 @@
       position="top"
       :style="{ height: '60%' }"
     >
-      <updateAvatar :url="message.photo" @update-photo="closePopupAvator">
-      </updateAvatar>
+      <updateAvatar
+        :url="message.photo"
+        @update-photo="closePopupAvator"
+      />
     </van-popup>
     <van-popup
       v-model="showNickName"
@@ -103,8 +116,10 @@
       position="top"
       :style="{ height: '31%' }"
     >
-      <updateName :name="message.name" @closePopup="closePopupName">
-      </updateName>
+      <updateName
+        :name="message.name"
+        @closePopup="closePopupName"
+      />
     </van-popup>
     <van-popup
       v-model="showSex"
@@ -114,7 +129,10 @@
       position="top"
       :style="{ height: '35%' }"
     >
-      <updateSex :sex="message.gender" @closePopup="closePopupSex"> </updateSex>
+      <updateSex
+        :sex="message.gender"
+        @closePopup="closePopupSex"
+      />
     </van-popup>
 
     <!-- 生日更改 -->
@@ -130,21 +148,21 @@
   </div>
 </template>
 <script>
-import { getUserProfile } from "@/api/user";
-import updateName from "@/views/user-profile/component/updateName";
-import updateAvatar from "@/views/user-profile/component/updateAvatar";
-import updateSex from "@/views/user-profile/component/updateSex";
-import { updateUserProfile } from "@/api/user";
-import { ImagePreview } from "vant";
+import { getUserProfile, updateUserProfile } from '@/api/user'
+import updateName from '@/views/user-profile/component/updateName'
+import updateAvatar from '@/views/user-profile/component/updateAvatar'
+import updateSex from '@/views/user-profile/component/updateSex'
+
+import { ImagePreview } from 'vant'
 
 export default {
-  name: "userProfile",
+  name: 'UserProfile',
   components: {
     updateName,
     updateAvatar,
     updateSex
   },
-  data() {
+  data () {
     return {
       message: {},
       showAvatar: false,
@@ -153,49 +171,49 @@ export default {
       showBirthday: false,
       minDate: new Date(2021, 0, 1),
       maxDate: new Date(2021, 11, 31)
-    };
+    }
   },
-  async mounted() {
-    const { data } = await getUserProfile();
-    this.message = data.data;
+  async mounted () {
+    const { data } = await getUserProfile()
+    this.message = data.data
   },
   methods: {
-    closePopupName(newName) {
-      this.showNickName = false;
-      this.message.name = newName;
+    closePopupName (newName) {
+      this.showNickName = false
+      this.message.name = newName
     },
-    closePopupSex(newSex) {
-      this.showSex = false;
-      this.message.gender = newSex;
-    },
-
-    closePopupAvator(newAvatar) {
-      this.message.photo = newAvatar;
-      this.showAvatar = false;
+    closePopupSex (newSex) {
+      this.showSex = false
+      this.message.gender = newSex
     },
 
-    openImg() {
+    closePopupAvator (newAvatar) {
+      this.message.photo = newAvatar
+      this.showAvatar = false
+    },
+
+    openImg () {
       ImagePreview({
         images: [this.message.photo],
         closeable: true
-      });
+      })
     },
 
-    async updateNewBirthday(date) {
-      const newBirthday = `2021-${date.getMonth() + 1}-${date.getDate()}`;
+    async updateNewBirthday (date) {
+      const newBirthday = `2021-${date.getMonth() + 1}-${date.getDate()}`
 
       const { data } = await updateUserProfile({
         birthday: newBirthday
-      });
-      this.$toast.loading("正在修改生日");
-      if (data.message === "OK") {
-        this.$toast.success("修改成功");
-        this.showBirthday = false;
-        this.message.birthday = newBirthday;
+      })
+      this.$toast.loading('正在修改生日')
+      if (data.message === 'OK') {
+        this.$toast.success('修改成功')
+        this.showBirthday = false
+        this.message.birthday = newBirthday
       }
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 .container {

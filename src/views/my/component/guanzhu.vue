@@ -2,9 +2,9 @@
   <div class="container">
     <van-sticky :offset-top="135.4">
       <div class="bg">
-        <span class="title"
-          >该用户的{{ type === 1 ? "粉丝" : "关注" }}列表</span
-        >
+        <span
+          class="title"
+        >该用户的{{ type === 1 ? "粉丝" : "关注" }}列表</span>
       </div>
     </van-sticky>
 
@@ -16,18 +16,22 @@
       offset="100"
     >
       <template v-for="(item, index) in userdata">
-        <userItem :itemData="item" :index="index" :key="index"> </userItem>
+        <userItem
+          :item-data="item"
+          :index="index"
+          :key="index"
+        />
       </template>
     </van-list>
   </div>
 </template>
 <script>
-import { getGuanZhu, getFenSi } from "@/api/my";
-import userItem from "@/views/my/component/component/userItem";
+import { getGuanZhu, getFenSi } from '@/api/my'
+import userItem from '@/views/my/component/component/userItem'
 export default {
-  name: "guanZhu",
+  name: 'GuanZhu',
   components: { userItem },
-  data() {
+  data () {
     return {
       userdata: [],
       total_count: 0,
@@ -35,7 +39,7 @@ export default {
       loading: false,
       finished: false,
       page: 2
-    };
+    }
   },
   props: {
     id: {
@@ -48,47 +52,47 @@ export default {
     }
   },
 
-  created() {
-    this.getData();
+  created () {
+    this.getData()
   },
   methods: {
     // 初始化数据
-    async getData() {
+    async getData () {
       if (this.type === 1) {
         const { data } = await getFenSi({
           target: this.id,
           page: 1
-        });
-        this.userdata = data.data.results;
+        })
+        this.userdata = data.data.results
       } else {
         const { data } = await getGuanZhu({
           target: this.id,
           page: 1
-        });
-        this.userdata = data.data.results;
+        })
+        this.userdata = data.data.results
       }
     },
 
-    async onLoad() {
+    async onLoad () {
       if (this.type === 2) {
         // 异步更新数据
         // setTimeout 仅做示例，真实场景中一般为 ajax 请求
         const { data } = await getGuanZhu({
           target: this.id,
           page: this.page
-        });
-        this.total_count = data.data.total_count;
-        this.userdata.push(...data.data.results);
+        })
+        this.total_count = data.data.total_count
+        this.userdata.push(...data.data.results)
         this.$toast({
           message: `更新${data.data.results.length}条\n新的用户`,
-          icon: "like-o"
-        });
+          icon: 'like-o'
+        })
 
-        this.loading = false;
+        this.loading = false
         if (this.userdata.length < this.total_count) {
-          this.page++;
+          this.page++
         } else {
-          this.finished = true;
+          this.finished = true
         }
       } else {
         // 异步更新数据
@@ -96,25 +100,25 @@ export default {
         const { data } = await getFenSi({
           target: this.id,
           page: this.page
-        });
-        this.total_count = data.data.total_count;
-        this.userdata.push(...data.data.results);
+        })
+        this.total_count = data.data.total_count
+        this.userdata.push(...data.data.results)
         this.$toast({
           message: `更新${data.data.results.length}条\n新的用户`,
-          icon: "like-o",
+          icon: 'like-o',
           duration: 500
-        });
+        })
 
-        this.loading = false;
+        this.loading = false
         if (this.userdata.length < this.total_count) {
-          this.page++;
+          this.page++
         } else {
-          this.finished = true;
+          this.finished = true
         }
       }
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 .container {

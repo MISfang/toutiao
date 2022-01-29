@@ -9,10 +9,21 @@
       class="myimg"
       @click="clickAvator"
     />
-    <h4 class="title">原头像<small>（点击可预览）</small></h4>
+    <h4 class="title">
+      原头像<small>（点击可预览）</small>
+    </h4>
 
-    <van-uploader :after-read="afterRead" accept="image/*">
-      <van-button icon="user-circle-o" type="info" round>更改头像</van-button>
+    <van-uploader
+      :after-read="afterRead"
+      accept="image/*"
+    >
+      <van-button
+        icon="user-circle-o"
+        type="info"
+        round
+      >
+        更改头像
+      </van-button>
     </van-uploader>
 
     <!-- 上传图片的弹出框 -->
@@ -26,21 +37,21 @@
       <div class="cropperBox">
         <vueCropper
           :img="srcObject.content"
-          :outputSize="1"
-          outputType="png"
-          :autoCrop="true"
-          :fixedBox="true"
-        ></vueCropper>
+          :output-size="1"
+          output-type="png"
+          :auto-crop="true"
+          :fixed-box="true"
+        />
       </div>
     </van-dialog>
   </div>
 </template>
 <script>
-import { ImagePreview } from "vant";
-import { VueCropper } from "vue-cropper";
-import { updateUserPhoto } from "@/api/user";
+import { ImagePreview } from 'vant'
+import { VueCropper } from 'vue-cropper'
+import { updateUserPhoto } from '@/api/user'
 export default {
-  name: "updateAvatar",
+  name: 'UpdateAvatar',
   props: {
     url: {
       type: String,
@@ -50,43 +61,43 @@ export default {
   components: {
     VueCropper
   },
-  data() {
+  data () {
     return {
       isDialogShow: false,
       srcObject: {}
-    };
+    }
   },
 
   methods: {
-    afterRead(file) {
+    afterRead (file) {
       // 此时可以自行将文件上传至服务器
-      this.srcObject = file;
+      this.srcObject = file
 
       // 打开对应的弹出层
-      this.isDialogShow = true;
+      this.isDialogShow = true
     },
 
-    async upLoadAvator() {
-      const fd = new FormData();
-      fd.append("photo", this.srcObject);
+    async upLoadAvator () {
+      const fd = new FormData()
+      fd.append('photo', this.srcObject)
 
-      const { data } = await updateUserPhoto(fd);
-      this.$toast.loading("正在上传");
+      const { data } = await updateUserPhoto(fd)
+      this.$toast.loading('正在上传')
 
-      if (data.message === "OK") {
-        this.$toast.success("上传成功");
+      if (data.message === 'OK') {
+        this.$toast.success('上传成功')
       }
-      this.$emit("update-photo", this.srcObject.content);
+      this.$emit('update-photo', this.srcObject.content)
     },
 
-    clickAvator() {
+    clickAvator () {
       ImagePreview({
         images: [this.url],
         closeable: true
-      });
+      })
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 .container02 {

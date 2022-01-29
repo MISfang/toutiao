@@ -2,7 +2,10 @@
   <div class="search-suggestion">
     <!-- 最上面的那个说明 -->
     <!-- 最上面的历史记录和删除按钮 -->
-    <van-cell title="搜索建议" class="top-cell"> </van-cell>
+    <van-cell
+      title="搜索建议"
+      class="top-cell"
+    />
 
     <van-cell-group class="cellGroup">
       <van-cell
@@ -11,24 +14,27 @@
         icon="search"
         @click="$emit('suggestion', str)"
       >
-        <div slot="title" v-html="highlight(str)"></div>
+        <div
+          slot="title"
+          v-html="highlight(str)"
+        />
       </van-cell>
     </van-cell-group>
   </div>
 </template>
 
 <script>
-import { debounce } from "lodash";
-import { searchSuggest } from "@/api/search";
-import { Toast } from "vant";
+import { debounce } from 'lodash'
+import { searchSuggest } from '@/api/search'
+import { Toast } from 'vant'
 
 // 用lodash的第三方包来实现函数的防抖和节流
 export default {
-  name: "searchSuggestion",
-  data() {
+  name: 'SearchSuggestion',
+  data () {
     return {
       suggestList: []
-    };
+    }
   },
   props: {
     searchText: {
@@ -38,29 +44,29 @@ export default {
   },
   watch: {
     searchText: {
-      handler: debounce(async function() {
+      handler: debounce(async function () {
         // 输入框一变化就发请求
-        const { data } = await searchSuggest(this.searchText);
-        const { options } = data.data;
+        const { data } = await searchSuggest(this.searchText)
+        const { options } = data.data
         if (options.length === 0) {
-          Toast.fail("没有相关\n搜索建议");
+          Toast.fail('没有相关\n搜索建议')
         }
-        this.suggestList = options;
+        this.suggestList = options
       }, 300),
       immediate: true
     }
   },
   methods: {
-    highlight(str) {
-      const ZZ = new RegExp(this.searchText, "gi");
+    highlight (str) {
+      const ZZ = new RegExp(this.searchText, 'gi')
       const res = str.replace(
         ZZ,
         `<span style="color:red;font-weight:700;font-size:15px">${this.searchText}</span>`
-      );
-      return res;
+      )
+      return res
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

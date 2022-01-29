@@ -1,7 +1,12 @@
 <template>
   <div class="channel-edit">
     <van-cell>
-      <div slot="title" class="title">我的频道</div>
+      <div
+        slot="title"
+        class="title"
+      >
+        我的频道
+      </div>
       <van-button
         round
         type="info"
@@ -9,12 +14,16 @@
         class="edit-btn"
         size="small"
         @click="isClearShow = !isClearShow"
-        >{{ isClearShow ? "完成" : "编辑" }}</van-button
       >
+        {{ isClearShow ? "完成" : "编辑" }}
+      </van-button>
     </van-cell>
 
     <!-- 下面的用户已选择的频道列表 -->
-    <van-grid :gutter="6" :column-num="3">
+    <van-grid
+      :gutter="6"
+      :column-num="3"
+    >
       <van-grid-item
         v-for="(channel, index) in channels"
         :key="index"
@@ -25,7 +34,7 @@
         @click="onUserChannelClick(channel, index)"
       />
     </van-grid>
-    <div class="top-placeHA"></div>
+    <div class="top-placeHA" />
     <van-divider
       :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 4px' }"
     >
@@ -34,10 +43,18 @@
 
     <!-- 再往下用户未选中的频道 -->
     <van-cell class="placeHB">
-      <div slot="title" class="title">其他频道</div>
+      <div
+        slot="title"
+        class="title"
+      >
+        其他频道
+      </div>
     </van-cell>
     <!-- 下面的用户已未选中的频道列表 -->
-    <van-grid :gutter="6" :column-num="3">
+    <van-grid
+      :gutter="6"
+      :column-num="3"
+    >
       <van-grid-item
         v-for="(channel, index) in recommendChannels"
         :key="index"
@@ -48,7 +65,7 @@
         @click="onAdd(channel)"
       />
     </van-grid>
-    <div class="placeHolder"></div>
+    <div class="placeHolder" />
   </div>
 </template>
 
@@ -57,12 +74,12 @@ import {
   getAllChannels,
   addUserChannels,
   deleteUserChannels
-} from "@/api/news";
-import { mapState } from "vuex";
-import { getItem, setItem, removeItem } from "@/utils/storeage";
+} from '@/api/news'
+import { mapState } from 'vuex'
+import { getItem, setItem, removeItem } from '@/utils/storeage'
 
 export default {
-  name: "ChannelDeit",
+  name: 'ChannelDeit',
   props: {
     channels: {
       type: Array,
@@ -73,27 +90,27 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       allChannels: [],
       // 控制右上角x号显示的flag
       isClearShow: false
-    };
+    }
   },
-  created() {
-    this.loadAllChannels();
+  created () {
+    this.loadAllChannels()
   },
   methods: {
-    async loadAllChannels() {
-      const { data } = await getAllChannels();
-      this.allChannels = data.data.channels;
+    async loadAllChannels () {
+      const { data } = await getAllChannels()
+      this.allChannels = data.data.channels
 
-      this.channels = getItem("user-channels");
+      this.channels = getItem('user-channels')
     },
 
     // 添加点击事件
-    async onAdd(channel) {
-      this.channels.push(channel);
+    async onAdd (channel) {
+      this.channels.push(channel)
 
       // 做一下数据持久化
       // if (this.user) {
@@ -106,53 +123,53 @@ export default {
       //   ]);
       // } else {
       // 未登录
-      setItem("user-channels", this.channels);
+      setItem('user-channels', this.channels)
       // }
     },
 
     // 添加删除或者切换列表的方法
-    onUserChannelClick(channel, id) {
+    onUserChannelClick (channel, id) {
       if (this.isClearShow === true && id !== 0) {
-        this.deleteChannel(channel, id);
+        this.deleteChannel(channel, id)
       } else if (this.isClearShow === false) {
-        this.swicthChannel(id);
+        this.swicthChannel(id)
       }
     },
 
     // 对应删除频道的方法
-    async deleteChannel(channel, id) {
+    async deleteChannel (channel, id) {
       if (id <= this.active) {
-        this.$emit("switch", this.active - 1);
+        this.$emit('switch', this.active - 1)
       }
-      this.channels.splice(id, 1);
+      this.channels.splice(id, 1)
       // if (this.user) {
       //   // 线上持久化
       //   await deleteUserChannels(channel.id);
       // } else {
       // 线下持久化
-      setItem("user-channels", this.channels);
+      setItem('user-channels', this.channels)
       // }
     },
 
     // 对应切换频道的逻辑
-    swicthChannel(id) {
-      this.$emit("close");
-      this.$emit("switch", id);
+    swicthChannel (id) {
+      this.$emit('close')
+      this.$emit('switch', id)
     }
   },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(['user']),
 
     // 计算剩余的频道列表
-    recommendChannels() {
+    recommendChannels () {
       return this.allChannels.filter(channel => {
         return !this.channels.find(userChannel => {
-          return userChannel.id === channel.id;
-        });
-      });
+          return userChannel.id === channel.id
+        })
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

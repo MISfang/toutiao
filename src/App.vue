@@ -8,16 +8,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 export default {
-  name: "App",
-  data() {
-    return {};
+  name: 'App',
+  data () {
+    return {}
   },
   computed: {
-    ...mapState(["cachePages"])
+    ...mapState(['cachePages'])
   }
-};
+}
 </script>
 
 <style lang="less">

@@ -8,17 +8,28 @@
       }
     }"
   >
-    <div slot="title" class="title van-multi-ellipsis--l2">
+    <div
+      slot="title"
+      class="title van-multi-ellipsis--l2"
+    >
       {{ article.title }}
     </div>
     <div slot="label">
-      <div class="cover-warp" v-if="article.cover.type === 3">
+      <div
+        class="cover-warp"
+        v-if="article.cover.type === 3"
+      >
         <div
           class="cover-warp-iem"
           v-for="(image, index) in article.cover.images"
           :key="index"
         >
-          <van-image width="116" height="73" fit="cover" :src="image" />
+          <van-image
+            width="116"
+            height="73"
+            fit="cover"
+            :src="image"
+          />
         </div>
       </div>
       <!-- 下面的作者，发布时间等 -->
@@ -40,14 +51,14 @@
 
 <script>
 export default {
-  name: "ArticleItem",
+  name: 'ArticleItem',
   props: {
     article: {
       type: Object,
       required: true
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
