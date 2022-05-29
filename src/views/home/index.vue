@@ -31,7 +31,7 @@
     >
       <van-image
         fit="cover"
-        src="./Snipaste_2022-01-17_16-10-29.png"
+        src="https://www.ghostoact.com/static/arts/img/skins/Leona_Splash_11.jpg"
       />
     </van-dialog>
     <!-- 对应弹出的dialog结束 -->
@@ -177,7 +177,7 @@ export default {
   created () {
     this.loadChannels()
   },
-  mounted () {},
+  mounted () { },
   methods: {
     // 点击 宇龙头条 触发的事件
     onClickLeft () {
