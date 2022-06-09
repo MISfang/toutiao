@@ -1,17 +1,37 @@
 <template>
   <div class="login-container">
     <!-- 最上面的蓝色导航栏 -->
-    <van-nav-bar title="登录/注册" left-arrow @click-left="$router.back()" class="app-nav-bar">
+    <van-nav-bar
+      title="登录/注册"
+      left-arrow
+      @click-left="$router.back()"
+      class="app-nav-bar"
+    >
       <template #right>
-        <van-button type="info" plain hairline round @click="popupIsShow = true" size="small">查看测试号</van-button>
+        <van-button
+          type="info"
+          plain
+          hairline
+          round
+          @click="popupIsShow = true"
+          size="small"
+        >
+          查看测试号
+        </van-button>
       </template>
     </van-nav-bar>
 
     <!-- 轮播图 -->
     <div class="my-swipe-container">
-      <van-swipe autoplay="2000" class="my-swipe">
-        <van-swipe-item v-for="(image, index) in swiperImgs" :key="index">
-          <img v-lazy="image" />
+      <van-swipe
+        autoplay="2000"
+        class="my-swipe"
+      >
+        <van-swipe-item
+          v-for="(image, index) in swiperImgs"
+          :key="index"
+        >
+          <img v-lazy="image">
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -55,9 +75,16 @@
             :loading="idSendSmsLoading"
             loading-type="spinner"
             loading-text="验证码发送中..."
-          >发送验证码</van-button>
+          >
+            发送验证码
+          </van-button>
           <!-- 倒计时组件 -->
-          <van-count-down :time="1000 * 60" format="ss S" v-else @finish="isCountDownShow = true">
+          <van-count-down
+            :time="1000 * 60"
+            format="ss S"
+            v-else
+            @finish="isCountDownShow = true"
+          >
             <template #default="timeData">
               <span class="block">{{ timeData.seconds }}</span>
             </template>
@@ -66,16 +93,43 @@
       </van-field>
 
       <!-- 登录按钮 -->
-      <van-button type="info" round icon="flag-o" block class="login-button">登录</van-button>
+      <van-button
+        type="info"
+        round
+        icon="flag-o"
+        block
+        class="login-button"
+      >
+        登录
+      </van-button>
     </van-form>
     <!-- 下面的输入框结束 -->
 
-    <van-dialog v-model="popupIsShow" title="测试号">
+    <van-dialog
+      v-model="popupIsShow"
+      title="测试号"
+    >
       <van-cell-group inset>
-        <van-cell title="13911111111" size="large" value="246810" />
-        <van-cell title="13611111111" size="large" value="246810" />
-        <van-cell title="13922222222" size="large" value="246810" />
-        <van-cell title="17320270567" size="large" value="246810" />
+        <van-cell
+          title="13911111111"
+          size="large"
+          value="246810"
+        />
+        <van-cell
+          title="13611111111"
+          size="large"
+          value="246810"
+        />
+        <van-cell
+          title="13922222222"
+          size="large"
+          value="246810"
+        />
+        <van-cell
+          title="17320270567"
+          size="large"
+          value="246810"
+        />
       </van-cell-group>
     </van-dialog>
   </div>
@@ -89,7 +143,7 @@ export default {
   name: 'Login',
   components: {},
   props: {},
-  data() {
+  data () {
     return {
       // 控制倒计时是否显示的flag
       isCountDownShow: true,
@@ -132,7 +186,7 @@ export default {
   },
   methods: {
     // 登录对应方法
-    async onLogin() {
+    async onLogin () {
       // 触发登录中提示
       Toast.loading({
         message: '登录中...',
@@ -159,7 +213,7 @@ export default {
     },
 
     // 拿到验证不通过的数据
-    onFailed(error) {
+    onFailed (error) {
       if (error.errors[0]) {
         Toast({
           message: error.errors[0].message,
@@ -169,7 +223,7 @@ export default {
     },
 
     // 发送验证码
-    async onSendSms() {
+    async onSendSms () {
       try {
         await this.$refs['login-form'].validate('mobile')
 
