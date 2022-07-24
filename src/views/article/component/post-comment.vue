@@ -25,7 +25,6 @@
 
 <script>
 import { addComments } from '@/api/comment'
-import { Notify } from 'vant'
 export default {
   name: 'PostComment',
   props: {
@@ -93,15 +92,18 @@ export default {
     width: 95%;
     border-radius: 8px;
   }
+
   /deep/.van-field__control {
     color: rgb(83, 83, 83) !important;
     font-size: 18px;
   }
+
   .btn-warp {
     width: 375px;
     display: flex;
     flex-direction: row;
     justify-content: center;
+
     .button {
       width: 250px;
       height: 35px;

@@ -57,7 +57,6 @@ import searchSuggestion from '@/views/home/components/components/search-suggesti
 import history from '@/views/home/components/components/history'
 import searchResult from '@/views/home/components/components/search-result'
 import { getItem, setItem } from '@/utils/storeage'
-import { searchHistory } from '@/api/search'
 import { mapState } from 'vuex'
 
 export default {
@@ -142,9 +141,11 @@ export default {
     background-color: #2892ff;
     border-radius: 15px 15px 0 0;
   }
+
   .search-button {
     margin-top: -10px;
   }
+
   /deep/.right-button {
     display: flex;
     justify-content: center;

@@ -11,8 +11,8 @@
 window.$crisp = []
 window.CRISP_WEBSITE_ID = 'c18e4f99-bdba-4555-b7dd-65c2bc9e2e67';
 (function () {
-  d = document
-  s = d.createElement('script')
+  const d = document
+  const s = d.createElement('script')
   s.src = 'https://client.crisp.chat/l.js'
   s.async = 1
   d.getElementsByTagName('head')[0].appendChild(s)
@@ -21,6 +21,7 @@ window.CRISP_WEBSITE_ID = 'c18e4f99-bdba-4555-b7dd-65c2bc9e2e67';
 
 <style lang="less">
 @import "./styles/stylesheet.css";
+
 body {
   font-family: "adidasi" !important;
 }

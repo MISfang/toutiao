@@ -77,12 +77,12 @@ export default {
         message: '稍等...',
         forbidClick: true
       })
-      const comment_id = this.item.com_id.toString()
+      const commentId = this.item.com_id.toString()
       if (this.item.is_liking) {
-        await deletelikeComments(comment_id)
+        await deletelikeComments(commentId)
         this.item.like_count--
       } else {
-        await likeComments(comment_id)
+        await likeComments(commentId)
         this.item.like_count++
       }
 
@@ -99,37 +99,45 @@ export default {
 <style lang="less" scoped>
 .comment-item {
   padding: 10px 12px;
+
   /deep/.van-cell__title {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
   }
+
   /deep/.van-cell__value {
     width: 20px !important;
   }
+
   .aut-img {
     border: 2px solid white;
     margin-right: 14px;
     width: 48px;
     height: 48px;
   }
+
   .title {
     width: 140px;
+
     .name {
       font-size: 10px;
       color: white;
       margin-bottom: 4px;
     }
+
     .content {
       font-size: 22px;
       color: black;
       margin-bottom: 4px;
     }
+
     .pubdate {
       font-size: 10px;
       line-height: 14px;
       margin-top: 5px;
     }
+
     .recomment-btn {
       margin-left: 10px;
       width: 60px;
@@ -139,6 +147,7 @@ export default {
       color: white;
     }
   }
+
   .Scontainer {
     display: flex;
     flex-direction: row;
@@ -153,6 +162,7 @@ export default {
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+
     .like-count {
       margin-left: 8px;
       font-size: 18px;
@@ -160,6 +170,7 @@ export default {
     }
   }
 }
+
 .punlun02 {
   margin-left: -71px;
 }

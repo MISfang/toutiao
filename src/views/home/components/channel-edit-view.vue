@@ -35,9 +35,7 @@
       />
     </van-grid>
     <div class="top-placeHA" />
-    <van-divider
-      :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 4px' }"
-    >
+    <van-divider :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 4px' }">
       分割线
     </van-divider>
 
@@ -71,12 +69,10 @@
 
 <script>
 import {
-  getAllChannels,
-  addUserChannels,
-  deleteUserChannels
+  getAllChannels
 } from '@/api/news'
 import { mapState } from 'vuex'
-import { getItem, setItem, removeItem } from '@/utils/storeage'
+import { getItem, setItem } from '@/utils/storeage'
 
 export default {
   name: 'ChannelDeit',
@@ -175,12 +171,14 @@ export default {
 <style lang="less" scoped>
 .channel-edit {
   padding: 40px 10px 0;
+
   .title {
     height: 46px;
     line-height: 36px;
     font-size: 18px;
     color: #227bd7;
   }
+
   .edit-btn {
     width: 100px;
     height: 36px;
@@ -191,6 +189,7 @@ export default {
 
 .channel-grid {
   position: relative;
+
   /deep/.van-grid-item__icon {
     position: absolute;
     top: -6px;
@@ -204,10 +203,12 @@ export default {
 .placeHolder {
   height: 40px;
 }
+
 .top-placeHA {
   width: 100%;
   height: 10px;
 }
+
 .placeHB {
   margin-top: -20px;
 }
@@ -215,11 +216,13 @@ export default {
 .shadow {
   box-shadow: 5px 4px 3px #ebedf0;
 }
+
 .active {
   /deep/.van-grid-item__text {
     color: #1989fa;
     font-size: 16px !important;
   }
+
   /deep/.van-grid-item__content {
     background-color: #f7f9ff;
     box-shadow: 5px 4px 3px #ebedf0;

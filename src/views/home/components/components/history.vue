@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { getItem, setItem } from '@/utils/storeage'
+import { setItem } from '@/utils/storeage'
 import { Dialog, Toast } from 'vant'
 
 export default {
@@ -125,16 +125,19 @@ export default {
 
 <style lang="less" scoped>
 .search-suggestion {
+
   // 那个删除小图标的样式
   /deep/.van-toast__icon {
     width: 500px !important;
     height: 500px;
   }
+
   .noHistory {
     font-size: 24px;
     color: #2892ff;
     margin: 20px 0 0 110px;
   }
+
   .top-cell {
     /deep/.van-cell__title {
       font-size: 18px;
@@ -142,20 +145,24 @@ export default {
       display: flex;
       align-items: center;
     }
+
     .search-icon {
       font-size: 28px;
       line-height: inherit;
       margin-bottom: 6px;
     }
+
     .two-button {
       width: 80px;
       height: 30px;
       font-size: 12px;
     }
+
     .left {
       margin-right: 6px;
     }
   }
+
   .cellGroup {
     .van-cell {
       background-color: #f7f8fa;
@@ -163,12 +170,14 @@ export default {
       border-radius: 12px;
       margin: 2px 0;
       box-shadow: 4px 10px 12px 2px #ebedf0;
+
       .van-icon-close {
         margin: auto 0;
         font-size: 18px;
         color: #ee0a24;
       }
     }
+
     margin: 10px 10px 0 10px;
   }
 }

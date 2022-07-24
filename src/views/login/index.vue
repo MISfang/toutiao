@@ -136,7 +136,7 @@
 </template>
 
 <script>
-import { login, sendSms } from '@/api/user'
+import { login } from '@/api/user'
 import { Toast } from 'vant'
 
 export default {
@@ -267,6 +267,7 @@ export default {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   padding-bottom: 10px;
 }
+
 .login-button {
   width: 80%;
   display: flex;
@@ -274,16 +275,19 @@ export default {
   margin: 15px auto 0;
   background-color: #6db4fb;
   border: none;
+
   .van-button__text {
     font-size: 18px;
   }
 }
+
 // 轮播图样式调整
 
 .my-swipe-container {
   width: 375px;
   height: 200px;
 }
+
 .my-swipe .van-swipe-item img {
   width: 100%;
   height: 100%;

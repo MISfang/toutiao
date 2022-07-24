@@ -180,12 +180,10 @@ import {
   addFollow,
   deleteFollow,
   colected,
-  deleteColected,
-  addLike,
-  deleteLike
+  deleteColected
 } from '@/api/user'
 // 图片预览组件
-import { ImagePreview, Toast, Sticky } from 'vant'
+import { ImagePreview, Toast } from 'vant'
 import commentList from '@/views/article/component/comment-list'
 import postComment from '@/views/article/component/post-comment'
 import commentReply from '@/views/article/component/comment-reply'
@@ -365,16 +363,19 @@ export default {
   left: 0;
   right: 0;
 }
+
 .placeholder {
   width: 100%;
   height: 45px;
 }
+
 .wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
 }
+
 .bgc {
   width: 100%;
   background: linear-gradient(to right, #0052d4, #4364f7, #6fb1fc);
@@ -384,6 +385,7 @@ export default {
   padding-top: 40px;
   padding: 0 0 40px 0;
   overflow: hidden;
+
   .card-container {
     overflow: hidden;
     margin: 40px auto 10px;
@@ -392,6 +394,7 @@ export default {
     width: 88%;
     background-color: rgba(255, 255, 255, 0.6);
     box-shadow: 0.2em 0.4em 2em rgba(0, 0, 0, 0.8);
+
     .title {
       font-size: 22px;
       color: black;
@@ -399,6 +402,7 @@ export default {
       margin-right: 20px;
       text-align: justify;
     }
+
     /deep/.van-cell {
       max-width: 330px;
       margin: 0 auto;
@@ -407,24 +411,30 @@ export default {
       background-color: rgba(255, 255, 255, 0.5);
       box-shadow: 0.1em 0.1em 1em rgba(0, 0, 0, 0.1);
     }
+
     .author {
       margin-top: 20px;
+
       /deep/.van-cell__title {
         font-size: 16px;
+
         span {
           display: block;
           margin-bottom: 5px;
         }
       }
+
       /deep/.van-cell__label {
         font-size: 10px;
       }
+
       .author-img {
         margin-right: 15px;
         margin-left: -5px;
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
         border: 2px solid white;
       }
+
       .button {
         min-width: 90px;
         height: 35px;
@@ -440,6 +450,7 @@ export default {
       margin: 30px auto;
       box-shadow: 0.1em 0.1em 1em rgba(0, 0, 0, 0.8);
     }
+
     // 下面的1正文样式
     .textcontent {
       letter-spacing: 2px;
@@ -449,6 +460,7 @@ export default {
     }
   }
 }
+
 // 下面的评论样式
 .pinlun {
   height: 40px;
@@ -462,6 +474,7 @@ export default {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+
   .pinlun-btn {
     width: 140px;
     height: 40px;
@@ -490,6 +503,7 @@ export default {
   align-items: center;
   border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+
   .text {
     font-size: 13px;
     text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
@@ -499,23 +513,28 @@ export default {
 /deep/.van-share-sheet__name {
   color: white;
 }
+
 /deep/.van-share-sheet__title {
   color: white;
   font-size: 20px;
 }
+
 /deep/.van-share-sheet__options {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
+
 /deep/.van-share-sheet__cancel {
   font-size: 24px;
   background-color: rgba(255, 255, 255, 0.4) !important;
   border-radius: 20px 20px 0 0;
 }
+
 /deep/.van-share-sheet__cancel::before {
   background-color: rgba(255, 255, 255, 00) !important;
 }
+
 /deep/.van-popup__close-icon {
   font-size: 32px;
   margin-top: -8px;
